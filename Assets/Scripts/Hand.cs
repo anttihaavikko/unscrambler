@@ -184,7 +184,7 @@ public class Hand : MonoBehaviour
         elements.Clear();
         hand.RemoveAll();
         calculatorArea.RemoveAll();
-        wordDictionary.GenerateWord(level + 5);
+        wordDictionary.GenerateWord(level + 5, 2, new List<Operation> { Operation.Sum });
     }
 
     private void NextLevel()

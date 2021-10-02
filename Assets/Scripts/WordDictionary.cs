@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using AnttiStarterKit.Extensions;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -105,24 +106,27 @@ public class WordDictionary : MonoBehaviour
         Debug.Log(string.Join("-", parts));
         solution = word;
 
+        return true;
+    }
+
+    private void ShuffleParts()
+    {
         parts = parts.OrderBy(_ => Random.value).ToList();
-        
+
         var tries = 0;
         while (IsWord(string.Join(string.Empty, parts).ToLower()) && tries < 10)
         {
             parts = parts.OrderBy(_ => Random.value).ToList();
             tries++;
         }
-        
-        return true;
     }
 
-    public void GenerateWord(int len)
+    public void GenerateWord(int len, int splits, List<Operation> operations)
     {
-        StartCoroutine(GenerationCoroutine(len));
+        StartCoroutine(GenerationCoroutine(len, splits, operations));
     }
 
-    private IEnumerator GenerationCoroutine(int len)
+    private IEnumerator GenerationCoroutine(int len, int splits, List<Operation> operations)
     {
         while (allParts == null || !allParts.Any()) yield return new WaitForSeconds(0.2f);
         
@@ -134,7 +138,90 @@ public class WordDictionary : MonoBehaviour
             yield return null;
         }
 
+        for (var i = 0; i < splits; i++)
+        {
+            TryToSplit(operations.Random());   
+        }
+
+        ShuffleParts();
+
         wordPicked?.Invoke(parts);
+    }
+
+    private void TryToSplit(Operation op)
+    {
+        var target = parts.Random();
+        var e = elements.GetMatch(target);
+        var (a, b) = GetSplitElements(e.number, op);
+
+        if (a == default || b == default) return;
+        
+        Debug.Log($"Will split {target} ({e.number}) => {a.abbreviation} and {b.abbreviation}");
+        
+        parts.Remove(target);
+        parts.Add(a.abbreviation);
+        parts.Add(b.abbreviation);
+    }
+
+    private (Element, Element) GetSplitElements(int source, Operation op)
+    {
+        var (a, b) = GetSplitNumbers(source, op);
+        var elA = elements.GetMatch(a);
+        var elB = elements.GetMatch(b);
+        return (elA, elB);
+    }
+
+    private (int, int) GetSplitNumbers(int source, Operation op)
+    {
+        return op switch
+        {
+            Operation.Sum => GetSplitForSum(source),
+            Operation.Sub => GetSplitForSub(source),
+            Operation.Mul => GetSplitForMul(source),
+            Operation.Div => GetSplitForDiv(source),
+            _ => throw new ArgumentOutOfRangeException(nameof(op), op, null)
+        };
+    }
+
+    private (int, int) GetSplitForSum(int source)
+    {
+        var a = Random.Range(1, source);
+        var b = source - a;
+        return (a, b);
+    }
+    
+    private (int, int) GetSplitForSub(int source)
+    {
+        var a = Random.Range(1, source);
+        var b = source + a;
+        return (a, b);
+    }
+
+    private (int, int) GetSplitForMul(int source)
+    {
+        var factors = new List<int>();
+
+        for (var i = 1; i <= source; i++)
+        {
+            if (source % i == 0)
+            {
+                factors.Add(i);
+            } 
+        }
+
+        // I guess it's a prime
+        if (!factors.Any()) return (-1, -1);
+        
+        var a = factors.Random();
+        var b = source * a;
+        return (a, b);
+    }
+    
+    private (int, int) GetSplitForDiv(int source)
+    {
+        var a = Random.Range(1, source);
+        var b = source * a;
+        return (a, b);
     }
 
     private bool IsOk(string letter)
