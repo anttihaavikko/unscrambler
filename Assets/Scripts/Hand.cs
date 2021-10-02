@@ -16,6 +16,8 @@ public class Hand : MonoBehaviour
     [SerializeField] private HeartDisplay hearts;
     [SerializeField] private NumberScroller scoreDisplay;
     [SerializeField] private Appearer helpText;
+    [SerializeField] private List<GameObject> scoreButtonPenaltyParts;
+    [SerializeField] private TMP_Text penaltyDisplay;
 
     private int level;
     private List<ElementCard> elements;
@@ -58,6 +60,7 @@ public class Hand : MonoBehaviour
                     penalty = parts.Count - len;
                     evaluationDisplay.text = penalty == 0 ? "Perfect word found!" : $"Best found word: {word.ToUpper()}";
                     helpSeen = true;
+                    UpdateEvaluateButton();
                     yield break;
                 }
                 yield return null;
@@ -69,6 +72,14 @@ public class Hand : MonoBehaviour
         penalty = parts.Count;
         evaluationDisplay.text = "No words found!";
         helpSeen = true;
+        UpdateEvaluateButton();
+    }
+
+    private void UpdateEvaluateButton()
+    {
+        var penalized = penalty > 0;
+        scoreButtonPenaltyParts.ForEach(p => p.SetActive(penalized));
+        penaltyDisplay.text = $"-{penalty}";
     }
 
     private void Start()
