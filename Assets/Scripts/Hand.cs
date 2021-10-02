@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AnttiStarterKit.Animations;
 using AnttiStarterKit.Utils;
+using Cinemachine;
 using TMPro;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ public class Hand : MonoBehaviour
     [SerializeField] private TMP_Text penaltyDisplay;
     [SerializeField] private Elements elementList;
     [SerializeField] private TMP_Text calculatorDisplay;
+    [SerializeField] private CinemachineVirtualCamera virtualCam;
 
     private int level;
     private List<ElementCard> elements;
@@ -28,6 +30,7 @@ public class Hand : MonoBehaviour
     private int lives = 10;
     private bool helpSeen;
     private List<string> currentParts;
+    private float targetOrtho = 3f;
 
     private Operation operation = Operation.Sum;
 
@@ -79,6 +82,10 @@ public class Hand : MonoBehaviour
         {
             CreateCard(part, Vector3.down * 10f, hand);
         }
+
+        var els = elements.Count;
+        var zoom = Mathf.Max(0, (els - 8) * 0.4f);
+        targetOrtho = 3 + zoom;
     }
 
     private void CreateCard(string code, Vector3 pos, CardHolder holder)
@@ -140,6 +147,8 @@ public class Hand : MonoBehaviour
     private void Update()
     {
         DebugControls();
+        virtualCam.m_Lens.OrthographicSize =
+            Mathf.MoveTowards(virtualCam.m_Lens.OrthographicSize, targetOrtho, 3f * Time.deltaTime);
     }
 
     private void DebugControls()
