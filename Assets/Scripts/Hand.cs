@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using AnttiStarterKit.Animations;
+using AnttiStarterKit.Extensions;
 using AnttiStarterKit.Utils;
 using Cinemachine;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Hand : MonoBehaviour
 {
@@ -22,6 +24,9 @@ public class Hand : MonoBehaviour
     [SerializeField] private Elements elementList;
     [SerializeField] private TMP_Text calculatorDisplay;
     [SerializeField] private CinemachineVirtualCamera virtualCam;
+    [SerializeField] private Image multiplierTimer;
+    [SerializeField] private TMP_Text multiplierText;
+    [SerializeField] private Appearer multiplierAppearer;
 
     private int level;
     private List<ElementCard> elements;
@@ -31,6 +36,9 @@ public class Hand : MonoBehaviour
     private bool helpSeen;
     private List<string> currentParts;
     private float targetOrtho = 3f;
+    private float multiplierTime = 60f;
+    private int multiplier = 5;
+    private bool doneDealing;
 
     private Operation operation = Operation.Sum;
 
@@ -69,6 +77,29 @@ public class Hand : MonoBehaviour
         calculatorArea.reordered += DoCalculations;
         
         UpdateOperation();
+
+        multiplierTimer.type = Image.Type.Filled;
+        multiplierTimer.fillMethod = Image.FillMethod.Radial360;
+        multiplierTimer.fillAmount = 1f;
+    }
+
+    private void CooldownMultiplier()
+    {
+        multiplierTime -= Time.deltaTime;
+
+        if (multiplierTime <= 0 && multiplier > 1)
+        {
+            SetMultiplier(multiplier - 1);
+        }
+        
+        multiplierTimer.fillAmount = Mathf.Max(0, multiplierTime / 60f);
+    }
+
+    private void SetMultiplier(int value)
+    {
+        multiplier = value;
+        multiplierText.text = $"x{multiplier}";
+        multiplierTime = 60f;
     }
 
     private LevelDefinition GetDefinition()
@@ -78,10 +109,18 @@ public class Hand : MonoBehaviour
 
     private void CreateCards()
     {
+        StartCoroutine(CreateCardsCoroutine());
+    }
+
+    private IEnumerator CreateCardsCoroutine()
+    {
         foreach (var part in currentParts)
         {
-            CreateCard(part, Vector3.down * 10f, hand);
+            CreateCard(part, Vector3.down * 5f, hand);
+            yield return new WaitForSeconds(0.075f);
         }
+
+        doneDealing = true;
 
         var els = elements.Count;
         var zoom = Mathf.Max(0, (els - 8) * 0.4f);
@@ -99,6 +138,8 @@ public class Hand : MonoBehaviour
 
     private IEnumerator Evaluate()
     {
+        while (!doneDealing) yield return null;
+        
         var parts = elements.Where(e => e.transform.position.y < 1f)
             .OrderBy(e => e.transform.position.x)
             .Select(e => e.GetAbbreviation())
@@ -146,6 +187,8 @@ public class Hand : MonoBehaviour
 
     private void Update()
     {
+        CooldownMultiplier();
+        
         DebugControls();
         virtualCam.m_Lens.OrthographicSize =
             Mathf.MoveTowards(virtualCam.m_Lens.OrthographicSize, targetOrtho, 3f * Time.deltaTime);
@@ -172,10 +215,12 @@ public class Hand : MonoBehaviour
 
     public void Proceed()
     {
-        var amount = (elements.Count - penalty) * (level + 1);
+        multiplierAppearer.Hide();
+        
+        var amount = (elements.Count - penalty) * (level + 1) * multiplier;
         if (amount > 0)
         {
-            scoreDisplay.Add(amount);   
+            this.StartCoroutine(() => scoreDisplay.Add(amount), 0.25f);
         }
 
         lives -= penalty;
@@ -183,7 +228,7 @@ public class Hand : MonoBehaviour
 
         if (penalty > 0)
         {
-            helpText.ShowWithText($"Previous solution: {wordDictionary.GetWord().ToUpper()}", 0.3f);
+            helpText.ShowWithText($"Perfect solution: {wordDictionary.GetWord().ToUpper()}", 0.3f);
         }
 
         if (lives > 0)
@@ -208,7 +253,7 @@ public class Hand : MonoBehaviour
         {
             StopCoroutine(evaluationProcess);
         }
-
+        
         evaluationProcess = Evaluate();
         StartCoroutine(evaluationProcess);
     }
@@ -216,17 +261,25 @@ public class Hand : MonoBehaviour
     private void NewWord()
     {
         helpSeen = false;
+        var def = GetDefinition();
+        wordDictionary.GenerateWord(def.tiles, def.splits, def.operations);
+        SetMultiplier(5);
+        multiplierAppearer.Show();
+        doneDealing = false;
+    }
+
+    private void ClearTiles()
+    {
         elements.Clear();
         hand.RemoveAll();
         calculatorArea.RemoveAll();
-        var def = GetDefinition();
-        wordDictionary.GenerateWord(def.tiles, def.splits, def.operations);
     }
 
     private void NextLevel()
     {
         level++;
-        NewWord();
+        ClearTiles();
+        Invoke(nameof(NewWord), 3f);
     }
     
     private void DoCalculations()
