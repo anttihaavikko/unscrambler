@@ -29,11 +29,12 @@ public class Hand : MonoBehaviour
     [SerializeField] private Appearer multiplierAppearer, proceedAppearer, evalAppearer;
     [SerializeField] private Transform calculatorMachine;
     [SerializeField] private Appearer endOptions;
+    [SerializeField] private List<ParticleSystem> confettiCannons;
 
     private int level;
     private List<ElementCard> elements;
     private IEnumerator evaluationProcess;
-    private int penalty;
+    private int penalty, previousPenalty;
     private int lives = 10;
     private bool helpSeen;
     private List<string> currentParts;
@@ -158,7 +159,14 @@ public class Hand : MonoBehaviour
                 var word = string.Join(string.Empty, parts.GetRange(i, len));
                 if (wordDictionary.IsWord(word))
                 {
+                    previousPenalty = penalty;
                     penalty = totalCount - len;
+                    
+                    if (penalty == 0 && previousPenalty != 0)
+                    {
+                        confettiCannons.ForEach(ps => ps.Play());
+                    }
+                    
                     evaluationDisplay.text = penalty == 0 ? "Perfect word found!" : $"Best found word: {word.ToUpper()}";
                     helpSeen = true;
                     UpdateEvaluateButton();
