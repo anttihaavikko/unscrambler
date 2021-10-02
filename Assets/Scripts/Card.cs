@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using AnttiStarterKit.Animations;
 using AnttiStarterKit.Managers;
 using AnttiStarterKit.Visuals;
 using UnityEngine;
 using UnityEngine.Rendering;
+using Random = UnityEngine.Random;
 
 public class Card : MonoBehaviour
 {
@@ -79,6 +81,11 @@ public class Card : MonoBehaviour
 		transform.rotation = Quaternion.RotateTowards (transform.rotation, Quaternion.Euler (new Vector3 (-ydiff, xdiff, 0)), 0.5f);
 	}
 
+	public void OnMouseDrag()
+	{
+		UpdateArea();
+	}
+
 	public void OnMouseDown() {
 
 		currentSpeed = moveSpeed + Random.Range(-0.5f, 0.5f);
@@ -101,6 +108,14 @@ public class Card : MonoBehaviour
 
 	public void OnMouseUp()
 	{
+		UpdateArea();
+		
+		SetHeight (false);
+		currentHolder.AddCard (this, false);
+	}
+
+	private void UpdateArea()
+	{
 		var area = Physics2D.OverlapCircle(transform.position, 1f, areaMask);
 
 		if (area)
@@ -116,9 +131,6 @@ public class Card : MonoBehaviour
 				currentHolder = area.GetComponent<CardHolder>();	
 			}
 		}
-		
-		SetHeight (false);
-		currentHolder.AddCard (this, false);
 	}
 
 	void OnMouseOver() {
