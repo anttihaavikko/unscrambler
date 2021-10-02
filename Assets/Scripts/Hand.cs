@@ -5,6 +5,7 @@ using System.Linq;
 using AnttiStarterKit.Animations;
 using AnttiStarterKit.Extensions;
 using AnttiStarterKit.Utils;
+using AnttiStarterKit.Visuals;
 using Cinemachine;
 using TMPro;
 using UnityEngine;
@@ -30,6 +31,7 @@ public class Hand : MonoBehaviour
     [SerializeField] private Transform calculatorMachine;
     [SerializeField] private Appearer endOptions;
     [SerializeField] private List<ParticleSystem> confettiCannons;
+    [SerializeField] private EffectCamera cam;
 
     private int level;
     private List<ElementCard> elements;
@@ -169,6 +171,7 @@ public class Hand : MonoBehaviour
                     if (penalty == 0 && previousPenalty != 0)
                     {
                         confettiCannons.ForEach(ps => ps.Play());
+                        cam.BaseEffect(0.3f);
                     }
                     
                     evaluationDisplay.text = penalty == 0 ? "Perfect word found!" : $"Best found word: {word.ToUpper()}";
@@ -245,6 +248,8 @@ public class Hand : MonoBehaviour
     {
         if (!doneDealing) return;
         
+        cam.BaseEffect(0.1f);
+        
         proceedAppearer.Hide();
         
         doneDealing = false;
@@ -261,7 +266,7 @@ public class Hand : MonoBehaviour
 
         if (penalty > 0)
         {
-            helpText.ShowWithText($"Perfect solution: {wordDictionary.GetWord().ToUpper()}", 0.3f);
+            helpText.ShowWithText($"Perfect solution was: {wordDictionary.GetWord().ToUpper()}", 0.3f);
         }
 
         if (lives > 0)
@@ -353,6 +358,7 @@ public class Hand : MonoBehaviour
         if (calculatorArea.CardCount() != 2)
         {
             calculatorDisplay.text = "ERR!!!";
+            cam.BaseEffect(0.1f);
             return;
         }
         
@@ -363,6 +369,7 @@ public class Hand : MonoBehaviour
         if (matches.Count != 2) 
         {
             calculatorDisplay.text = "ERR!!!";
+            cam.BaseEffect(0.1f);
             return;
         }
         
@@ -397,6 +404,8 @@ public class Hand : MonoBehaviour
     {
         var result = GetOperationResult(first, second);
         var e = elementList.GetMatch(result);
+        
+        cam.BaseEffect(0.1f);
 
         if (e != default)
         {
@@ -441,6 +450,8 @@ public class Hand : MonoBehaviour
         if (op < 0) op = 3;
         operation = (Operation)op;
         UpdateOperation();
+        
+        cam.BaseEffect(0.05f);
         
         Invoke(nameof(DoCalculations), 1f);
     }
