@@ -242,7 +242,7 @@ public class Hand : MonoBehaviour
 
     public void BackToMenu()
     {
-        SceneChanger.Instance.ChangeScene("Main");
+        SceneChanger.Instance.ChangeScene("Start");
     }
 
     public void Proceed()
