@@ -10,7 +10,7 @@ using UnityEngine;
 public class Hand : MonoBehaviour
 {
     [SerializeField] private WordDictionary wordDictionary;
-    [SerializeField] private CardHolder hand;
+    [SerializeField] private CardHolder hand, calculatorArea;
     [SerializeField] private Card cardPrefab;
     [SerializeField] private TMP_Text evaluationDisplay;
     [SerializeField] private HeartDisplay hearts;
@@ -18,6 +18,8 @@ public class Hand : MonoBehaviour
     [SerializeField] private Appearer helpText;
     [SerializeField] private List<GameObject> scoreButtonPenaltyParts;
     [SerializeField] private TMP_Text penaltyDisplay;
+    [SerializeField] private Elements elementList;
+    [SerializeField] private TMP_Text calculatorDisplay;
 
     private int level;
     private List<ElementCard> elements;
@@ -25,6 +27,8 @@ public class Hand : MonoBehaviour
     private int penalty;
     private int lives = 10;
     private bool helpSeen;
+
+    private Operation operation = Operation.Sum;
 
     private void Awake()
     {
@@ -34,21 +38,34 @@ public class Hand : MonoBehaviour
         {
             foreach (var part in parts)
             {
-                var card = Instantiate(cardPrefab, Vector3.down * 10f, Quaternion.identity);
-                var e = card.GetComponent<ElementCard>();
-                e.Setup(part);
-                elements.Add(e);
-                hand.AddCard(card, true);
+                CreateCard(part, Vector3.down * 10f, hand);
             }
         };
 
         hand.reordered += StartEvaluation;
+        calculatorArea.reordered += DoCalculations;
+        
+        UpdateOperation();
+    }
+
+    private void CreateCard(string code, Vector3 pos, CardHolder holder)
+    {
+        var card = Instantiate(cardPrefab, pos, Quaternion.identity);
+        var e = card.GetComponent<ElementCard>();
+        e.Setup(code);
+        elements.Add(e);
+        holder.AddCard(card, true);
     }
 
     private IEnumerator Evaluate()
     {
-        var parts = elements.OrderBy(e => e.transform.position.x).Select(e => e.GetAbbreviation()).ToList();
+        var parts = elements.Where(e => e.transform.position.y < 1f)
+            .OrderBy(e => e.transform.position.x)
+            .Select(e => e.GetAbbreviation())
+            .ToList();
+        
         var len = parts.Count;
+        var totalCount = elements.Count;
 
         while (len > 0)
         {
@@ -57,7 +74,7 @@ public class Hand : MonoBehaviour
                 var word = string.Join(string.Empty, parts.GetRange(i, len));
                 if (wordDictionary.IsWord(word))
                 {
-                    penalty = parts.Count - len;
+                    penalty = totalCount - len;
                     evaluationDisplay.text = penalty == 0 ? "Perfect word found!" : $"Best found word: {word.ToUpper()}";
                     helpSeen = true;
                     UpdateEvaluateButton();
@@ -69,7 +86,7 @@ public class Hand : MonoBehaviour
             len--;
         }
 
-        penalty = parts.Count;
+        penalty = totalCount;
         evaluationDisplay.text = "No words found!";
         helpSeen = true;
         UpdateEvaluateButton();
@@ -134,6 +151,7 @@ public class Hand : MonoBehaviour
         }
         
         hand.RemoveAll();
+        calculatorArea.RemoveAll();
         evaluationDisplay.text = "Game Over";
     }
 
@@ -152,14 +170,13 @@ public class Hand : MonoBehaviour
         evaluationProcess = Evaluate();
         StartCoroutine(evaluationProcess);
     }
-    
-    
 
     private void NewWord()
     {
         helpSeen = false;
         elements.Clear();
         hand.RemoveAll();
+        calculatorArea.RemoveAll();
         wordDictionary.GenerateWord(level + 5);
     }
 
@@ -168,4 +185,124 @@ public class Hand : MonoBehaviour
         level++;
         NewWord();
     }
+    
+    private void DoCalculations()
+    {
+        UpdateOperation();
+        
+        if (calculatorArea.CardCount() != 2) return;
+
+        var matches = elements.Where(e => e.transform.position.y > 1)
+            .OrderBy(e => e.transform.position.x)
+            .ToList();
+
+        if (matches.Count != 2) return;
+        
+        PreviewCalculation(matches[0], matches[1]);
+    }
+
+    public void RunCalculations()
+    {
+        if (calculatorArea.CardCount() != 2)
+        {
+            calculatorDisplay.text = "ERR!!!";
+            return;
+        }
+        
+        var matches = elements.Where(e => e.transform.position.y > 1)
+            .OrderBy(e => e.transform.position.x)
+            .ToList();
+
+        if (matches.Count != 2) 
+        {
+            calculatorDisplay.text = "ERR!!!";
+            return;
+        }
+        
+        Operate(matches[0], matches[1]);
+    }
+
+    private void UpdateOperation()
+    {
+        calculatorDisplay.text = operation switch
+        {
+            Operation.Sum => "ADDITION",
+            Operation.Sub => "SUBTRACTION",
+            Operation.Mul => "MULTIPLICATION",
+            Operation.Div => "DIVISION",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+    }
+    
+    private string GetOperationSign()
+    {
+        return operation switch
+        {
+            Operation.Sum => "+",
+            Operation.Sub => "-",
+            Operation.Mul => "*",
+            Operation.Div => "/",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+    }
+
+    private void Operate(ElementCard first, ElementCard second)
+    {
+        var result = GetOperationResult(first, second);
+        var e = elementList.GetMatch(result);
+
+        if (e != default)
+        {
+            elements.Remove(first);
+            elements.Remove(second);
+            calculatorArea.RemoveAll();
+            CreateCard(e.abbreviation, calculatorArea.transform.position, calculatorArea);
+            UpdateOperation();
+        }
+    }
+
+    private int GetOperationResult(ElementCard first, ElementCard second)
+    {
+        return operation switch
+        {
+            Operation.Sum => first.GetNumber() + second.GetNumber(),
+            Operation.Sub => first.GetNumber() - second.GetNumber(),
+            Operation.Mul => first.GetNumber() * second.GetNumber(),
+            Operation.Div => SafeDivision(first.GetNumber(), second.GetNumber()),
+            _ => throw new ArgumentOutOfRangeException()
+        };
+    }
+
+    private int SafeDivision(int a, int b)
+    {
+        if (b == 0) return -1;
+        return a % b == 0 ? a / b : -1;
+    }
+
+    private void PreviewCalculation(ElementCard first, ElementCard second)
+    {
+        var result = GetOperationResult(first, second);
+        var e = elementList.GetMatch(result);
+        var res = e != default ? $"{e.abbreviation} ({e.number})" : "ERR";
+        calculatorDisplay.text = $"{first.GetForCalculator()} {GetOperationSign()} {second.GetForCalculator()} = {res}";
+    }
+    
+    public void SwitchOperation(int dir)
+    {
+        var cur = (int)operation;
+        var op = (cur + dir) % 4;
+        if (op < 0) op = 3;
+        operation = (Operation)op;
+        UpdateOperation();
+        
+        Invoke(nameof(DoCalculations), 1f);
+    }
+}
+
+public enum Operation
+{
+    Sum,
+    Sub,
+    Mul,
+    Div
 }

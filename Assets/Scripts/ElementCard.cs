@@ -37,6 +37,16 @@ public class ElementCard : MonoBehaviour
     {
         return element.abbreviation.ToLower();
     }
+
+    public int GetNumber()
+    {
+        return element.number;
+    }
+
+    public string GetForCalculator()
+    {
+        return $"{element.abbreviation} ({element.number})";
+    }
 }
 
 public class Element

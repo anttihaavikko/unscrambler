@@ -44,6 +44,7 @@ public class WordDictionary : MonoBehaviour
 
     private void Start()
     {
+        elements.Load();
         allParts = elements.GetAbbreviations().Select(a => a.ToLower()).ToList();
     }
 

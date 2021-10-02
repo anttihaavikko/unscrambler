@@ -11,6 +11,7 @@ public class Card : MonoBehaviour
 
 	[SerializeField] private SortingGroup sortingGroup;
 	[SerializeField] private float moveSpeed = 7f;
+	[SerializeField] private LayerMask areaMask;
 
 	private bool dragging;
 	private Vector3 dragPoint;
@@ -86,9 +87,6 @@ public class Card : MonoBehaviour
 
 		startPoint = transform.position;
 
-		var point = Camera.main.ScreenPointToRay (Input.mousePosition).GetPoint(-Camera.main.transform.position.z - height);
-		point.z = 0;
-
 		dragPoint = Vector3.zero;
 		
 		currentHolder.RemoveCard (this);
@@ -103,6 +101,22 @@ public class Card : MonoBehaviour
 
 	public void OnMouseUp()
 	{
+		var area = Physics2D.OverlapCircle(transform.position, 1f, areaMask);
+
+		if (area)
+		{
+			var holder = area.GetComponent<CardHolder>();
+			if (holder.HasSpace())
+			{
+				if (holder != currentHolder)
+				{
+					currentHolder.PositionCards();
+				}
+				
+				currentHolder = area.GetComponent<CardHolder>();	
+			}
+		}
+		
 		SetHeight (false);
 		currentHolder.AddCard (this, false);
 	}

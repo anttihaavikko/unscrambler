@@ -11,8 +11,7 @@ public class CardHolder : MonoBehaviour
 
 	private List<Card> cards;
 	public int cardMax = 1;
-
-	public int numberOfCards = 1;
+	
 	public Card cardPrefab;
 
 	public CardHolder targetHolder;
@@ -26,18 +25,6 @@ public class CardHolder : MonoBehaviour
 	private void Awake ()
 	{
 		cards = new List<Card> ();
-
-		if (demoSpawn)
-		{
-			SpawnNewHand ();
-		}
-	}
-
-	public void SpawnNewHand() {
-		for (var i = 0; i < numberOfCards; i++)
-		{
-			Invoke (nameof(SpawnCard), i * 0.1f);
-		}
 	}
 
 	public void SpawnCard()
@@ -182,5 +169,10 @@ public class CardHolder : MonoBehaviour
 
 	public int CardCount() {
 		return cards.Count;
+	}
+
+	public bool HasSpace()
+	{
+		return cards.Count < cardMax;
 	}
 }

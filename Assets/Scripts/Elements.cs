@@ -10,6 +10,7 @@ public class Elements : ScriptableObject
     [SerializeField] private TextAsset elementList;
 
     private List<Element> elements;
+    private bool hasLoaded;
 
     private int GetIntOr(string input, int defaultValue)
     {
@@ -23,7 +24,7 @@ public class Elements : ScriptableObject
         return success ? value : defaultValue;
     }
 
-    private void OnEnable()
+    public void Load()
     {
         elements = new List<Element>();
         
@@ -47,6 +48,8 @@ public class Elements : ScriptableObject
         // {
         //     Debug.Log($"{g} => {groups.Count(group => group == g)}");
         // });
+        
+        hasLoaded = true;
     }
 
     public Element GetRandom()
@@ -56,7 +59,12 @@ public class Elements : ScriptableObject
 
     public Element GetMatch(string abbreviation)
     {
-        return elements.FirstOrDefault(e => e.abbreviation.ToLower() == abbreviation);
+        return elements.FirstOrDefault(e => string.Equals(e.abbreviation, abbreviation, StringComparison.CurrentCultureIgnoreCase));
+    }
+    
+    public Element GetMatch(int num)
+    {
+        return elements.FirstOrDefault(e => e.number == num);
     }
 
     public IEnumerable<string> GetAbbreviations()
