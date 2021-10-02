@@ -11,6 +11,8 @@ public class ElementCard : MonoBehaviour
     [SerializeField] private SpriteRenderer backgroundSprite;
     [SerializeField] private Elements elements;
 
+    private Element element;
+
     private static Color GetColor(int index)
     {
         return index == 0 ? Color.white : Color.HSVToRGB(index / 18f, 0.2f, 1f);
@@ -18,6 +20,7 @@ public class ElementCard : MonoBehaviour
 
     private void Setup(Element e)
     {
+        element = e;
         number.text = e.number.ToString(CultureInfo.InvariantCulture);
         abbreviation.text = e.abbreviation;
         title.text = e.title;
@@ -28,6 +31,11 @@ public class ElementCard : MonoBehaviour
     public void Setup(string code)
     {
         Setup(elements.GetMatch(code));
+    }
+
+    public string GetAbbreviation()
+    {
+        return element.abbreviation.ToLower();
     }
 }
 

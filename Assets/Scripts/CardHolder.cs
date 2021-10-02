@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CardHolder : MonoBehaviour
 {
@@ -18,6 +20,8 @@ public class CardHolder : MonoBehaviour
 	public bool demoSpawn = false;
 
 	private Vector3 Forward => isVertical ? Vector3.up : Vector3.right;
+
+	public Action reordered;
 
 	private void Awake ()
 	{
@@ -168,6 +172,11 @@ public class CardHolder : MonoBehaviour
 
 			cards [i].Move(transform.position + (-areaSize * 0.5f + curPos) * Forward + Vector3.back * 0.01f);
 			curPos += GetAxisFor(cards [i].transform.localScale) * 0.5f + 0.1f;
+		}
+
+		if (spaceBefore == -1)
+		{
+			reordered?.Invoke();
 		}
 	}
 
