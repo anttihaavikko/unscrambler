@@ -102,7 +102,11 @@ public class Hand : MonoBehaviour
     {
         multiplier = value;
         multiplierText.text = $"x{multiplier}";
-        multiplierTime = 60f;
+
+        if (multiplier > 1)
+        {
+            multiplierTime = 60f;   
+        }
     }
 
     private LevelDefinition GetDefinition()
