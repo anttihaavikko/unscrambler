@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using AnttiStarterKit.Animations;
 using AnttiStarterKit.Extensions;
 using TMPro;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class ElementCard : MonoBehaviour
     [SerializeField] private Elements elements;
 
     private Element element;
+    private Vector3 baseSize;
 
     private static Color GetColor(int index)
     {
@@ -26,6 +28,7 @@ public class ElementCard : MonoBehaviour
         title.text = e.title;
         mass.text = e.mass.ToString(CultureInfo.InvariantCulture);
         backgroundSprite.color = GetColor(e.colorIndex);
+        baseSize = transform.localScale;
     }
 
     public void Setup(string code)
@@ -46,6 +49,16 @@ public class ElementCard : MonoBehaviour
     public string GetForCalculator()
     {
         return $"{element.abbreviation} ({element.number})";
+    }
+
+    private void OnMouseEnter()
+    {
+        Tweener.ScaleToBounceOut(transform, baseSize * 1.1f, 0.1f);
+    }
+
+    private void OnMouseExit()
+    {
+        Tweener.ScaleToQuad(transform, baseSize, 0.15f);
     }
 }
 
