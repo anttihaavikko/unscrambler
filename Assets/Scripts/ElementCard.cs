@@ -11,9 +11,13 @@ public class ElementCard : MonoBehaviour
     [SerializeField] private SpriteRenderer backgroundSprite;
     [SerializeField] private Elements elements;
 
-    private void Start()
+    private static Color GetColor(int index)
     {
-        var e = elements.GetRandom();
+        return index == 0 ? Color.white : Color.HSVToRGB(index / 18f, 0.2f, 1f);
+    }
+
+    private void Setup(Element e)
+    {
         number.text = e.number.ToString(CultureInfo.InvariantCulture);
         abbreviation.text = e.abbreviation;
         title.text = e.title;
@@ -21,9 +25,9 @@ public class ElementCard : MonoBehaviour
         backgroundSprite.color = GetColor(e.colorIndex);
     }
 
-    private static Color GetColor(int index)
+    public void Setup(string code)
     {
-        return index == 0 ? Color.white : Color.HSVToRGB(index / 18f, 0.2f, 1f);
+        Setup(elements.GetMatch(code));
     }
 }
 

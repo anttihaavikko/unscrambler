@@ -53,4 +53,14 @@ public class Elements : ScriptableObject
     {
         return elements.Random();
     }
+
+    public Element GetMatch(string abbreviation)
+    {
+        return elements.FirstOrDefault(e => e.abbreviation.ToLower() == abbreviation);
+    }
+
+    public IEnumerable<string> GetAbbreviations()
+    {
+        return elements.Select(e => e.abbreviation);
+    }
 }

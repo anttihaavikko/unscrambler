@@ -87,6 +87,12 @@ public class CardHolder : MonoBehaviour
 		PositionCards ();
 	}
 
+	public void RemoveAll()
+	{
+		cards.ForEach(c => Destroy(c.gameObject));
+		cards.Clear();
+	}
+
 	private float GetAxisFor(Vector3 v)
 	{
 		return isVertical ? v.y : v.x;
