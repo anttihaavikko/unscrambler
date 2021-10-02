@@ -27,6 +27,7 @@ public class Hand : MonoBehaviour
     [SerializeField] private Image multiplierTimer;
     [SerializeField] private TMP_Text multiplierText;
     [SerializeField] private Appearer multiplierAppearer, proceedAppearer, evalAppearer;
+    [SerializeField] private Transform calculatorMachine;
 
     private int level;
     private List<ElementCard> elements;
@@ -212,7 +213,8 @@ public class Hand : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Proceed();
+            level += 10;
+            NextLevel();
         }
     }
 
@@ -273,6 +275,16 @@ public class Hand : MonoBehaviour
         wordDictionary.GenerateWord(def.tiles, def.splits, def.operations);
         SetMultiplier(5);
         multiplierAppearer.Show();
+
+        if (level == 2)
+        {
+            helpText.ShowWithText("Use the combiner machine to merge elements", 0.1f);
+        }
+
+        if (def.splits > 0)
+        {
+            Tweener.MoveToBounceOut(calculatorMachine, calculatorMachine.position.WhereY(2f), 0.4f);
+        }
     }
 
     private void ClearTiles()
