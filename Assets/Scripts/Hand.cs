@@ -456,12 +456,15 @@ public class Hand : MonoBehaviour
         UpdateOperation();
         
         cam.BaseEffect(0.05f);
+        calculatorShaker.Shake();
         
         Invoke(nameof(DoCalculations), 1f);
     }
 
     public void ResetLevel()
     {
+        calculatorShaker.Shake();
+        cam.BaseEffect(0.05f);
         evalAppearer.Hide();
         proceedAppearer.Hide();
         hand.RemoveAll();
