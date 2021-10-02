@@ -23,11 +23,7 @@ public class ElementCard : MonoBehaviour
 
     private static Color GetColor(int index)
     {
-        return index switch
-        {
-            0 => Color.cyan,
-            _ => Color.white
-        };
+        return index == 0 ? Color.white : Color.HSVToRGB(index / 18f, 0.2f, 1f);
     }
 }
 

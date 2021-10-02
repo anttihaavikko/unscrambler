@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AnttiStarterKit.Extensions;
 using UnityEngine;
 
@@ -40,6 +41,12 @@ public class Elements : ScriptableObject
                 GetIntOr(values[8], 0)
             ));
         }
+
+        // var groups = elements.Select(e => e.colorIndex).OrderBy(val => val).ToList();
+        // groups.Distinct().ToList().ForEach(g =>
+        // {
+        //     Debug.Log($"{g} => {groups.Count(group => group == g)}");
+        // });
     }
 
     public Element GetRandom()
