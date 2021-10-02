@@ -28,6 +28,7 @@ public class Hand : MonoBehaviour
     [SerializeField] private TMP_Text multiplierText;
     [SerializeField] private Appearer multiplierAppearer, proceedAppearer, evalAppearer;
     [SerializeField] private Transform calculatorMachine;
+    [SerializeField] private Appearer endOptions;
 
     private int level;
     private List<ElementCard> elements;
@@ -203,7 +204,7 @@ public class Hand : MonoBehaviour
         if (!Application.isEditor) return;
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneChanger.Instance.ChangeScene("Main");
+            Restart();
         }
 
         if (Input.GetKeyDown(KeyCode.KeypadPlus))
@@ -216,6 +217,16 @@ public class Hand : MonoBehaviour
             level += 10;
             NextLevel();
         }
+    }
+
+    public void Restart()
+    {
+        SceneChanger.Instance.ChangeScene("Main");
+    }
+
+    public void BackToMenu()
+    {
+        SceneChanger.Instance.ChangeScene("Main");
     }
 
     public void Proceed()
@@ -250,6 +261,8 @@ public class Hand : MonoBehaviour
         hand.RemoveAll();
         calculatorArea.RemoveAll();
         evaluationDisplay.text = "Game Over";
+        
+        endOptions.ShowAfter(0.5f);
     }
 
     private void StartEvaluation()
