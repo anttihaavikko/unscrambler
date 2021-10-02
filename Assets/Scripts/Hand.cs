@@ -32,6 +32,7 @@ public class Hand : MonoBehaviour
     [SerializeField] private Appearer endOptions;
     [SerializeField] private List<ParticleSystem> confettiCannons;
     [SerializeField] private EffectCamera cam;
+    [SerializeField] private Shaker calculatorShaker;
 
     private int level;
     private List<ElementCard> elements;
@@ -414,7 +415,10 @@ public class Hand : MonoBehaviour
             calculatorArea.RemoveAll();
             CreateCard(e.abbreviation, calculatorArea.transform.position, calculatorArea);
             UpdateOperation();
+            return;
         }
+        
+        calculatorShaker.Shake();
     }
 
     private int GetOperationResult(ElementCard first, ElementCard second)
