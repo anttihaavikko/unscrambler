@@ -31,6 +31,27 @@ public class Hand : MonoBehaviour
 
     private Operation operation = Operation.Sum;
 
+    private static List<LevelDefinition> levelDefinitions = new List<LevelDefinition>
+    {
+        new LevelDefinition(5, 0, new List<Operation>()),
+        new LevelDefinition(6, 0, new List<Operation>()),
+        new LevelDefinition(5, 1, new List<Operation> { Operation.Sum }),
+        new LevelDefinition(6, 1, new List<Operation> { Operation.Sub }),
+        new LevelDefinition(5, 2, new List<Operation> { Operation.Sum, Operation.Sub }),
+        new LevelDefinition(5, 1, new List<Operation> { Operation.Sum, Operation.Sub, Operation.Mul }),
+        new LevelDefinition(5, 1, new List<Operation> { Operation.Sum, Operation.Sub, Operation.Mul, Operation.Div }),
+        new LevelDefinition(7, 3, new List<Operation> { Operation.Sum, Operation.Sub }),
+        new LevelDefinition(6, 1, new List<Operation> { Operation.Sum, Operation.Sub, Operation.Mul, Operation.Div }),
+        new LevelDefinition(6, 2, new List<Operation> { Operation.Sum, Operation.Sub, Operation.Mul, Operation.Div }),
+        new LevelDefinition(7, 2, new List<Operation> { Operation.Sum, Operation.Sub, Operation.Mul, Operation.Div }),
+        new LevelDefinition(8, 2, new List<Operation> { Operation.Sum, Operation.Sub, Operation.Mul, Operation.Div }),
+        new LevelDefinition(8, 3, new List<Operation> { Operation.Sum, Operation.Sub, Operation.Mul, Operation.Div }),
+        new LevelDefinition(9, 3, new List<Operation> { Operation.Sum, Operation.Sub, Operation.Mul, Operation.Div }),
+        new LevelDefinition(10, 3, new List<Operation> { Operation.Sum, Operation.Sub, Operation.Mul, Operation.Div }),
+        new LevelDefinition(10, 4, new List<Operation> { Operation.Sum, Operation.Sub, Operation.Mul, Operation.Div }),
+        new LevelDefinition(10, 5, new List<Operation> { Operation.Sum, Operation.Sub, Operation.Mul, Operation.Div }),
+    };
+
     private void Awake()
     {
         elements = new List<ElementCard>();
@@ -45,6 +66,11 @@ public class Hand : MonoBehaviour
         calculatorArea.reordered += DoCalculations;
         
         UpdateOperation();
+    }
+
+    private LevelDefinition GetDefinition()
+    {
+        return levelDefinitions[Mathf.Min(level, levelDefinitions.Count - 1)];
     }
 
     private void CreateCards()
@@ -184,7 +210,8 @@ public class Hand : MonoBehaviour
         elements.Clear();
         hand.RemoveAll();
         calculatorArea.RemoveAll();
-        wordDictionary.GenerateWord(level + 5, 2, new List<Operation> { Operation.Sum });
+        var def = GetDefinition();
+        wordDictionary.GenerateWord(def.tiles, def.splits, def.operations);
     }
 
     private void NextLevel()
@@ -320,4 +347,18 @@ public enum Operation
     Sub,
     Mul,
     Div
+}
+
+public class LevelDefinition
+{
+    public int tiles;
+    public int splits;
+    public List<Operation> operations;
+
+    public LevelDefinition(int tiles, int splits, List<Operation> operations)
+    {
+        this.tiles = tiles;
+        this.splits = splits;
+        this.operations = operations;
+    }
 }

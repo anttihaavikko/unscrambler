@@ -213,7 +213,7 @@ public class WordDictionary : MonoBehaviour
         if (!factors.Any()) return (-1, -1);
         
         var a = factors.Random();
-        var b = source * a;
+        var b = source / a;
         return (a, b);
     }
     
