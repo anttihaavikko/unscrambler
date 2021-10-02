@@ -27,6 +27,7 @@ public class Hand : MonoBehaviour
     private int penalty;
     private int lives = 10;
     private bool helpSeen;
+    private List<string> currentParts;
 
     private Operation operation = Operation.Sum;
 
@@ -36,16 +37,22 @@ public class Hand : MonoBehaviour
         
         wordDictionary.wordPicked += parts =>
         {
-            foreach (var part in parts)
-            {
-                CreateCard(part, Vector3.down * 10f, hand);
-            }
+            currentParts = parts.ToList();
+            CreateCards();
         };
 
         hand.reordered += StartEvaluation;
         calculatorArea.reordered += DoCalculations;
         
         UpdateOperation();
+    }
+
+    private void CreateCards()
+    {
+        foreach (var part in currentParts)
+        {
+            CreateCard(part, Vector3.down * 10f, hand);
+        }
     }
 
     private void CreateCard(string code, Vector3 pos, CardHolder holder)
@@ -296,6 +303,14 @@ public class Hand : MonoBehaviour
         UpdateOperation();
         
         Invoke(nameof(DoCalculations), 1f);
+    }
+
+    public void ResetLevel()
+    {
+        hand.RemoveAll();
+        calculatorArea.RemoveAll();
+        elements.Clear();
+        CreateCards();
     }
 }
 
