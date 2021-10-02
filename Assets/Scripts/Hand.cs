@@ -23,12 +23,39 @@ public class Hand : MonoBehaviour
         };
     }
 
+    private void Start()
+    {
+        NewWord();
+    }
+
     private void Update()
     {
-        if (Application.isEditor && Input.GetKeyDown(KeyCode.R))
+        DebugControls();
+    }
+
+    private void DebugControls()
+    {
+        if (!Application.isEditor) return;
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            hand.RemoveAll();
-            wordDictionary.GenerateWord(level + 5);
+            NewWord();
         }
+
+        if (Input.GetKeyDown(KeyCode.KeypadPlus))
+        {
+            NextLevel();
+        }
+    }
+
+    private void NewWord()
+    {
+        hand.RemoveAll();
+        wordDictionary.GenerateWord(level + 5);
+    }
+
+    private void NextLevel()
+    {
+        level++;
+        NewWord();
     }
 }

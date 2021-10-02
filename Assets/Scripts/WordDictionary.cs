@@ -107,14 +107,19 @@ public class WordDictionary : MonoBehaviour
 
     public void GenerateWord(int len)
     {
-        var word = RandomWord(len);
+        StartCoroutine(GenerationCoroutine(len));
+    }
 
-        var safety = 0;
+    private IEnumerator GenerationCoroutine(int len)
+    {
+        while (allParts == null || !allParts.Any()) yield return new WaitForSeconds(0.2f);
+        
+        var word = RandomWord(len);
+        
         while (!Validate(word))
         {
-            if (safety > 1000) break;
             word = RandomWord(len);
-            safety++;
+            yield return null;
         }
 
         wordPicked?.Invoke(parts);
