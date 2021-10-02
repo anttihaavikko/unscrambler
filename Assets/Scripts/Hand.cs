@@ -26,7 +26,7 @@ public class Hand : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera virtualCam;
     [SerializeField] private Image multiplierTimer;
     [SerializeField] private TMP_Text multiplierText;
-    [SerializeField] private Appearer multiplierAppearer;
+    [SerializeField] private Appearer multiplierAppearer, proceedAppearer, evalAppearer;
 
     private int level;
     private List<ElementCard> elements;
@@ -109,6 +109,7 @@ public class Hand : MonoBehaviour
 
     private void CreateCards()
     {
+        doneDealing = false;
         StartCoroutine(CreateCardsCoroutine());
     }
 
@@ -178,6 +179,8 @@ public class Hand : MonoBehaviour
         var penalized = penalty > 0;
         scoreButtonPenaltyParts.ForEach(p => p.SetActive(penalized));
         penaltyDisplay.text = $"-{penalty}";
+        proceedAppearer.ShowAfter(0.3f);
+        evalAppearer.Show();
     }
 
     private void Start()
@@ -215,6 +218,11 @@ public class Hand : MonoBehaviour
 
     public void Proceed()
     {
+        if (!doneDealing) return;
+        
+        proceedAppearer.Hide();
+        
+        doneDealing = false;
         multiplierAppearer.Hide();
         
         var amount = (elements.Count - penalty) * (level + 1) * multiplier;
@@ -265,7 +273,6 @@ public class Hand : MonoBehaviour
         wordDictionary.GenerateWord(def.tiles, def.splits, def.operations);
         SetMultiplier(5);
         multiplierAppearer.Show();
-        doneDealing = false;
     }
 
     private void ClearTiles()
@@ -280,6 +287,8 @@ public class Hand : MonoBehaviour
         level++;
         ClearTiles();
         Invoke(nameof(NewWord), 3f);
+
+        evalAppearer.HideWithDelay(0.25f);
     }
     
     private void DoCalculations()
@@ -396,6 +405,8 @@ public class Hand : MonoBehaviour
 
     public void ResetLevel()
     {
+        evalAppearer.Hide();
+        proceedAppearer.Hide();
         hand.RemoveAll();
         calculatorArea.RemoveAll();
         elements.Clear();
