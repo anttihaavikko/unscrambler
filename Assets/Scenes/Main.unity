@@ -219,6 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee50705e04b6d4b50ab3cbcd8d8d0d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isVertical: 0
   cardMax: 999
   numberOfCards: 2
   cardPrefab: {fileID: 4572995101153495693, guid: 660ced88970514617ac3b8446a334a14, type: 3}
