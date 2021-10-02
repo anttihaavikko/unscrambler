@@ -17,6 +17,7 @@ public class WordDictionary : MonoBehaviour
     private List<string> parts;
 
     private string next;
+    private string solution;
 
     public Action<List<string>> wordPicked;
 
@@ -101,6 +102,7 @@ public class WordDictionary : MonoBehaviour
         
         Debug.Log($"Picked word '{word}'");
         Debug.Log(string.Join("-", parts));
+        solution = word;
         parts = parts.OrderBy(_ => Random.value).ToList();
         return true;
     }
@@ -133,5 +135,10 @@ public class WordDictionary : MonoBehaviour
     public string GetNext()
     {
         return next;
+    }
+
+    public string GetWord()
+    {
+        return solution;
     }
 }

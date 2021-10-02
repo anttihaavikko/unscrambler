@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AnttiStarterKit.Animations;
+using AnttiStarterKit.Utils;
 using TMPro;
 using UnityEngine;
 
@@ -11,10 +13,16 @@ public class Hand : MonoBehaviour
     [SerializeField] private CardHolder hand;
     [SerializeField] private Card cardPrefab;
     [SerializeField] private TMP_Text evaluationDisplay;
+    [SerializeField] private HeartDisplay hearts;
+    [SerializeField] private NumberScroller scoreDisplay;
+    [SerializeField] private Appearer helpText;
 
     private int level;
     private List<ElementCard> elements;
     private IEnumerator evaluationProcess;
+    private int penalty;
+    private int lives = 10;
+    private bool helpSeen;
 
     private void Awake()
     {
@@ -47,8 +55,9 @@ public class Hand : MonoBehaviour
                 var word = string.Join(string.Empty, parts.GetRange(i, len));
                 if (wordDictionary.IsWord(word))
                 {
-                    var penalty = parts.Count - len;
+                    penalty = parts.Count - len;
                     evaluationDisplay.text = penalty == 0 ? "Perfect word found!" : $"Best found word: {word.ToUpper()}";
+                    helpSeen = true;
                     yield break;
                 }
                 yield return null;
@@ -56,8 +65,10 @@ public class Hand : MonoBehaviour
 
             len--;
         }
-        
+
+        penalty = parts.Count;
         evaluationDisplay.text = "No words found!";
+        helpSeen = true;
     }
 
     private void Start()
@@ -85,12 +96,43 @@ public class Hand : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.E))
         {
-            StartEvaluation();
+            Proceed();
         }
+    }
+
+    public void Proceed()
+    {
+        var amount = (elements.Count - penalty) * (level + 1);
+        if (amount > 0)
+        {
+            scoreDisplay.Add(amount);   
+        }
+
+        lives -= penalty;
+        hearts.LoseLives(penalty);
+
+        if (penalty > 0)
+        {
+            helpText.ShowWithText($"Previous solution: {wordDictionary.GetWord().ToUpper()}", 0.3f);
+        }
+
+        if (lives > 0)
+        {
+            NextLevel();
+            return;
+        }
+        
+        hand.RemoveAll();
+        evaluationDisplay.text = "Game Over";
     }
 
     private void StartEvaluation()
     {
+        if (helpSeen)
+        {
+            helpText.Hide();
+        }
+        
         if (evaluationProcess != null)
         {
             StopCoroutine(evaluationProcess);
@@ -99,9 +141,12 @@ public class Hand : MonoBehaviour
         evaluationProcess = Evaluate();
         StartCoroutine(evaluationProcess);
     }
+    
+    
 
     private void NewWord()
     {
+        helpSeen = false;
         elements.Clear();
         hand.RemoveAll();
         wordDictionary.GenerateWord(level + 5);
