@@ -86,7 +86,7 @@ public class Hand : MonoBehaviour
         if (!Application.isEditor) return;
         if (Input.GetKeyDown(KeyCode.R))
         {
-            NewWord();
+            SceneChanger.Instance.ChangeScene("Main");
         }
 
         if (Input.GetKeyDown(KeyCode.KeypadPlus))
