@@ -4,11 +4,12 @@ namespace AnttiStarterKit.Visuals
 {
 	public class Shine : MonoBehaviour {
 
+		[SerializeField] private Transform target;
+
 		Vector3 originalPos;
 		public float distance = 0.1f;
 		public Transform mirrorParent;
 		public bool checkRotation = false;
-		public Vector3 focus = Vector3.up * 10f;
 
 		// Use this for initialization
 		void Start () {
@@ -17,7 +18,7 @@ namespace AnttiStarterKit.Visuals
 	
 		// Update is called once per frame
 		void Update () {
-			Vector3 direction = (focus - transform.position).normalized;
+			Vector3 direction = (target.position - transform.position).normalized;
 			direction.z = originalPos.z;
 			direction.x = mirrorParent ? mirrorParent.localScale.x * direction.x : direction.x;
 

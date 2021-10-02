@@ -276,9 +276,14 @@ public class Hand : MonoBehaviour
         SetMultiplier(5);
         multiplierAppearer.Show();
 
+        if (level == 0)
+        {
+            helpText.ShowWithText("Drag elements to correct order to form a word...", 1.25f);
+        }
+
         if (level == 2)
         {
-            helpText.ShowWithText("Use the combiner machine to merge elements", 0.1f);
+            helpText.ShowWithText("Use the combiner machine to merge elements...", 0.1f);
         }
 
         if (def.splits > 0)
