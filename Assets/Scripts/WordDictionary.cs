@@ -103,7 +103,16 @@ public class WordDictionary : MonoBehaviour
         Debug.Log($"Picked word '{word}'");
         Debug.Log(string.Join("-", parts));
         solution = word;
+
         parts = parts.OrderBy(_ => Random.value).ToList();
+        
+        var tries = 0;
+        while (IsWord(string.Join(string.Empty, parts).ToLower()) && tries < 10)
+        {
+            parts = parts.OrderBy(_ => Random.value).ToList();
+            tries++;
+        }
+        
         return true;
     }
 
