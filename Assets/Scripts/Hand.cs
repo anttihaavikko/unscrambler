@@ -278,6 +278,8 @@ public class Hand : MonoBehaviour
         
         hand.RemoveAll();
         calculatorArea.RemoveAll();
+        elements.Clear();
+        
         evaluationDisplay.text = "Game Over";
         
         endOptions.ShowAfter(0.5f);
@@ -463,6 +465,8 @@ public class Hand : MonoBehaviour
 
     public void ResetLevel()
     {
+        if (!elements.Any()) return;
+        
         calculatorShaker.Shake();
         cam.BaseEffect(0.05f);
         evalAppearer.Hide();
