@@ -13,8 +13,8 @@ namespace AnttiStarterKit.Managers
 		private float musVolume = 0.5f;
 		public AudioClip[] effects;
 
-		private AudioLowPassFilter lowpass;
-		private AudioHighPassFilter highpass;
+		[SerializeField] private AudioLowPassFilter lowpass;
+		[SerializeField] private AudioHighPassFilter highpass;
 
 		public float TargetPitch { get; set; } = 1f;
 
@@ -103,11 +103,11 @@ namespace AnttiStarterKit.Managers
 
 		private void Update()
 		{
-			var targetLowpass = (doingLowpass) ? 5000f : 22000;
+			var targetLowpass = (doingLowpass) ? 2000f : 22000;
 			var targetHighpass = (doingHighpass) ? 400f : 10f;
-			const float changeSpeed = 0.075f;
+			const float changeSpeed = 0.8f;
 
-			curMusic.pitch = Mathf.MoveTowards (curMusic.pitch, TargetPitch, 0.005f * changeSpeed);
+			curMusic.pitch = Mathf.MoveTowards (curMusic.pitch, TargetPitch, 0.01f * changeSpeed);
 			if(lowpass) lowpass.cutoffFrequency = Mathf.MoveTowards (lowpass.cutoffFrequency, targetLowpass, 750f * changeSpeed);
 			if (highpass) highpass.cutoffFrequency = Mathf.MoveTowards (highpass.cutoffFrequency, targetHighpass, 50f * changeSpeed);
 		
@@ -125,10 +125,10 @@ namespace AnttiStarterKit.Managers
 			}
 		}
 
-		public void PlayEffectFromCollection(int collection, Vector3 pos, float volume = 1f)
+		public void PlayEffectFromCollection(int collection, Vector3 pos, float volume = 1f, bool pitchShift = true)
 		{
 			var clip = soundCollections[collection].Random();
-			PlayEffectAt(clip, pos, volume);
+			PlayEffectAt(clip, pos, volume, pitchShift);
 		}
 		
 		public void PlayEffectFromCollection(SoundCollection collection, Vector3 pos, float volume = 1f)

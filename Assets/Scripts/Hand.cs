@@ -186,6 +186,8 @@ public class Hand : MonoBehaviour
                     
                     if (penalty == 0 && previousPenalty != 0)
                     {
+                        AudioManager.Instance.Highpass();
+                        
                         confettiCannons.ForEach(ps =>
                         {
                             var pos = ps.transform.position;
@@ -212,6 +214,10 @@ public class Hand : MonoBehaviour
                             AudioManager.Instance.PlayEffectFromCollection(3, pos, vol);
                             AudioManager.Instance.PlayEffectFromCollection(2, pos, vol);
                         }, Random.Range(0f, 0.5f));
+                    }
+                    else
+                    {
+                        AudioManager.Instance.Highpass(false);
                     }
                     
                     var message = penalty == 0 ? $"{Spacer}<wobble>Perfect word found!</wobble>{Spacer}" : $"Current best: <bulge>{word.ToUpper()}</bulge>";
@@ -277,11 +283,17 @@ public class Hand : MonoBehaviour
 
     public void Restart()
     {
+        AudioManager.Instance.Highpass(false);
+        AudioManager.Instance.Lowpass(false);
+        AudioManager.Instance.TargetPitch = 1f;
         SceneChanger.Instance.ChangeScene("Main");
     }
 
     public void BackToMenu()
     {
+        AudioManager.Instance.Highpass(false);
+        AudioManager.Instance.Lowpass(false);
+        AudioManager.Instance.TargetPitch = 1f;
         SceneChanger.Instance.ChangeScene("Start");
     }
 
@@ -290,6 +302,8 @@ public class Hand : MonoBehaviour
         if (!doneDealing) return;
         
         cam.BaseEffect(0.1f);
+        
+        AudioManager.Instance.Highpass(false);
         
         proceedAppearer.Hide();
         
@@ -312,13 +326,18 @@ public class Hand : MonoBehaviour
         {
             helpText.ShowAfter(0.3f);
             styledHelpText.SetText($"Perfect solution was: <bulge>{wordDictionary.GetWord().ToUpper()}</bulge>");
+            AudioManager.Instance.Lowpass();
         }
 
         if (lives > 0)
         {
             NextLevel();
+            PlayFanfare(4);
             return;
         }
+
+        PlayFanfare(5);
+        AudioManager.Instance.TargetPitch = 0.8f;
         
         hand.RemoveAll();
         calculatorArea.RemoveAll();
@@ -332,6 +351,14 @@ public class Hand : MonoBehaviour
         }, 0.3f);
         
         endOptions.ShowAfter(0.5f);
+    }
+
+    private void PlayFanfare(int index)
+    {
+        this.StartCoroutine(() =>
+        {
+            AudioManager.Instance.PlayEffectFromCollection(index, Vector3.zero, 1.2f, false);
+        }, 0.3f);
     }
 
     private static string GetId()
@@ -386,6 +413,8 @@ public class Hand : MonoBehaviour
         {
             Tweener.MoveToBounceOut(calculatorMachine, calculatorMachine.position.WhereY(2f), 0.4f);
         }
+        
+        AudioManager.Instance.Lowpass(false);
     }
 
     private void ClearTiles()
