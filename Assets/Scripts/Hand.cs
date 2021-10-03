@@ -35,6 +35,7 @@ public class Hand : MonoBehaviour
     [SerializeField] private Shaker calculatorShaker;
     [SerializeField] private ScoreManager scoreManager;
     [SerializeField] private StyledText styledHelpText, styledEvalText;
+    [SerializeField] private Pulsater multiPulsater;
 
     private int level;
     private List<ElementCard> elements;
@@ -99,6 +100,7 @@ public class Hand : MonoBehaviour
 
         if (multiplierTime <= 0 && multiplier > 1)
         {
+            multiPulsater.Pulsate();
             SetMultiplier(multiplier - 1);
         }
         
