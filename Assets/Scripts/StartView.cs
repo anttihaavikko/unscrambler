@@ -29,6 +29,9 @@ public class StartView : MonoBehaviour
             new List<string> { "U", "N", "Sc", "Ru", "U", "B", "Lu", "Mn" },
             new List<string> { "U", "N", "Sc", "Ra", "Nb", "La", "Ru" },
             new List<string> { "U", "N", "Sc", "Ra", "Mn", "La", "Ru" },
+            new List<string> { "U", "N", "S", "Cr", "Am", "B", "La", "Ru" },
+            new List<string> { "U", "N", "S", "Cr", "Am", "B", "La", "S" },
+            new List<string> { "U", "N", "S", "Cr", "Am", "B", "Lu", "Mn" },
         };
 
         return sets.Random();
