@@ -17,7 +17,6 @@ public class Hand : MonoBehaviour
     [SerializeField] private WordDictionary wordDictionary;
     [SerializeField] private CardHolder hand, calculatorArea;
     [SerializeField] private Card cardPrefab;
-    [SerializeField] private TMP_Text evaluationDisplay;
     [SerializeField] private HeartDisplay hearts;
     [SerializeField] private NumberScroller scoreDisplay;
     [SerializeField] private Appearer helpText;
@@ -35,6 +34,7 @@ public class Hand : MonoBehaviour
     [SerializeField] private EffectCamera cam;
     [SerializeField] private Shaker calculatorShaker;
     [SerializeField] private ScoreManager scoreManager;
+    [SerializeField] private StyledText styledHelpText, styledEvalText;
 
     private int level;
     private List<ElementCard> elements;
@@ -49,6 +49,8 @@ public class Hand : MonoBehaviour
     private bool doneDealing;
 
     private Operation operation = Operation.Sum;
+
+    private static string Spacer => "<color=white>~</color>";
 
     private static List<LevelDefinition> levelDefinitions = new List<LevelDefinition>
     {
@@ -177,7 +179,8 @@ public class Hand : MonoBehaviour
                         cam.BaseEffect(0.3f);
                     }
                     
-                    evaluationDisplay.text = penalty == 0 ? "Perfect word found!" : $"Best found word: {word.ToUpper()}";
+                    var message = penalty == 0 ? $"{Spacer}<wobble>Perfect word found!</wobble>{Spacer}" : $"Current best: <bulge>{word.ToUpper()}</bulge>";
+                    styledEvalText.SetText(message);
                     helpSeen = true;
                     UpdateEvaluateButton();
                     yield break;
@@ -189,7 +192,7 @@ public class Hand : MonoBehaviour
         }
 
         penalty = totalCount;
-        evaluationDisplay.text = "No words found!";
+        styledEvalText.SetText($"{Spacer}<bulge>No words found!</bulge>{Spacer}");
         helpSeen = true;
         UpdateEvaluateButton();
     }
@@ -261,7 +264,15 @@ public class Hand : MonoBehaviour
         var amount = (elements.Count - penalty) * (level + 1) * multiplier;
         if (amount > 0)
         {
-            this.StartCoroutine(() => scoreDisplay.Add(amount), 0.25f);
+            this.StartCoroutine(() =>
+            {
+                scoreDisplay.Add(amount);
+
+                if (lives <= 0)
+                {
+                    scoreManager.SubmitScore("Antti", scoreDisplay.Value, level + 1, GetId());
+                }
+            }, 0.25f);
         }
 
         lives -= penalty;
@@ -269,7 +280,8 @@ public class Hand : MonoBehaviour
 
         if (penalty > 0)
         {
-            helpText.ShowWithText($"Perfect solution was: {wordDictionary.GetWord().ToUpper()}", 0.3f);
+            helpText.ShowAfter(0.3f);
+            styledHelpText.SetText($"Perfect solution was: <bulge>{wordDictionary.GetWord().ToUpper()}</bulge>");
         }
 
         if (lives > 0)
@@ -282,11 +294,9 @@ public class Hand : MonoBehaviour
         calculatorArea.RemoveAll();
         elements.Clear();
         
-        evaluationDisplay.text = "Game Over";
+        styledEvalText.SetText($"{Spacer}<bulge>Game Over</bulge>{Spacer}");
         
         endOptions.ShowAfter(0.5f);
-
-        scoreManager.SubmitScore("Antti", scoreDisplay.Value, level + 1, GetId());
     }
 
     private static string GetId()
@@ -327,12 +337,14 @@ public class Hand : MonoBehaviour
 
         if (level == 0)
         {
-            helpText.ShowWithText("Drag elements to correct order to form a word...", 1.25f);
+            helpText.ShowAfter(1.25f);
+            styledHelpText.SetText($"{Spacer}Drag elements to <wobble>correct order</wobble> to form a word...{Spacer}");
         }
 
         if (level == 2)
         {
-            helpText.ShowWithText("Use the combiner machine to merge elements...", 0.1f);
+            helpText.ShowAfter(0.1f);
+            styledHelpText.SetText($"Use the <wobble>combiner machine</wobble> to merge elements...");
         }
 
         if (def.splits > 0)
