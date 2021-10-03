@@ -12,4 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc3c62a61c64e6b8fb81ac647261eee, type: 3}
   m_Name: Launch
   m_EditorClassIdentifier: 
-  rows: []
+  rows:
+  - clip: {fileID: 8300000, guid: 8023b357d10a64bc39509359a6d95c14, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: f40b61fc74e874a56b8a392f54a0f2e0, type: 3}
+    volume: 0.51
+  - clip: {fileID: 8300000, guid: e6cfe96675a3648058f3f8de2b0f157d, type: 3}
+    volume: 0.58
+  - clip: {fileID: 8300000, guid: 78fbf880456804ac4a20d390c641abd2, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: dd75a621526c549a2a7eaab413164af5, type: 3}
+    volume: 0.33

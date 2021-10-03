@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc3c62a61c64e6b8fb81ac647261eee, type: 3}
   m_Name: Heart
   m_EditorClassIdentifier: 
-  rows: []
+  rows:
+  - clip: {fileID: 8300000, guid: 236600240764449daac84b5a466364a3, type: 3}
+    volume: 0.63
+  - clip: {fileID: 8300000, guid: 78fbf880456804ac4a20d390c641abd2, type: 3}
+    volume: 0.53
+  - clip: {fileID: 8300000, guid: 1071ddbdb2072453988733bba6db30d4, type: 3}
+    volume: 0.23
+  - clip: {fileID: 8300000, guid: d46c4d7da242d4ca69662626d61d1e08, type: 3}
+    volume: 1.35

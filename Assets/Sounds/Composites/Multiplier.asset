@@ -12,4 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc3c62a61c64e6b8fb81ac647261eee, type: 3}
   m_Name: Multiplier
   m_EditorClassIdentifier: 
-  rows: []
+  rows:
+  - clip: {fileID: 8300000, guid: 236600240764449daac84b5a466364a3, type: 3}
+    volume: 0.23
+  - clip: {fileID: 8300000, guid: d679d4c8891a5493892c1590a748a2ab, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: bdf796ccca5a54034b472cf49fe1479e, type: 3}
+    volume: 1.58
+  - clip: {fileID: 8300000, guid: 565523e6465ff4793882dcc744fbd913, type: 3}
+    volume: 1.26
+  - clip: {fileID: 8300000, guid: eec9ee0a2f00b4afe806602b4158ecef, type: 3}
+    volume: 1

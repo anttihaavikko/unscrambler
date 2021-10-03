@@ -95,6 +95,8 @@ namespace Editor
                         clip = clip,
                         volume = 1f
                     });
+
+                    Save();
                 }
                 
                 EditorGUILayout.EndHorizontal();
@@ -108,6 +110,11 @@ namespace Editor
             EditorGUILayout.EndVertical();
             
             DrawPlayer();
+        }
+
+        private void Save()
+        {
+            EditorUtility.SetDirty(_object);
         }
 
         private void DrawFilter()
@@ -156,6 +163,7 @@ namespace Editor
             if (GUILayout.Button("► Play"))
             {
                 _object.Play();
+                Save();
             }
 
             EditorGUILayout.EndVertical();

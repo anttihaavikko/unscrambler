@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc3c62a61c64e6b8fb81ac647261eee, type: 3}
   m_Name: Blip
   m_EditorClassIdentifier: 
-  rows: []
+  rows:
+  - clip: {fileID: 8300000, guid: 47dc2396cee394e3897710543d21d56b, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: 49af6492f30694a959d94825b6417d25, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: b155db7479a5e4b17b2de89dbf57c49d, type: 3}
+    volume: 1
