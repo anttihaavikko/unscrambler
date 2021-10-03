@@ -540,7 +540,7 @@ public class Hand : MonoBehaviour
 
     private void MachineBlip()
     {
-        blipSound.Play(calculatorDisplay.transform.position, 0.6f);   
+        blipSound.Play(calculatorDisplay.transform.position, 0.5f);   
     }
 
     public void ResetLevel()
