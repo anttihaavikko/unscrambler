@@ -5233,6 +5233,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1592673325}
+  - component: {fileID: 1592673326}
   m_Layer: 0
   m_Name: Blobs
   m_TagString: Untagged
@@ -5288,6 +5289,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &1592673326
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592673324}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &1633365356
 GameObject:
   m_ObjectHideFlags: 0
