@@ -64,11 +64,13 @@ public class Card : MonoBehaviour
 			transform.position = Vector3.Lerp (fromPosition, toPosition, moveDuration);
 		}
 
-		Tilt (lastPos, transform.position);
-		float offset = dragging ? 0.1f : 0f;
-
-		shadow.transform.position = new Vector3 (transform.position.x, transform.position.y, dragging ? -0.25f : 0f);
-		shadow.transform.localScale = dragging ? shadowScale * 1.1f : shadowScale;
+		var position = transform.position;
+		Tilt (lastPos, position);
+		var offset = dragging ? 0.1f : 0f;
+		
+		shadow.transform.position = dragging ? 
+			Vector3.MoveTowards(position, Vector3.zero, 0.07f) : 
+			position;
 	}
 
 	private void Tilt(Vector3 prevPos, Vector3 curPos) {
