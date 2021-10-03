@@ -2421,6 +2421,7 @@ GameObject:
   - component: {fileID: 496535252}
   - component: {fileID: 496535254}
   - component: {fileID: 496535253}
+  - component: {fileID: 496535255}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -2544,6 +2545,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 496535251}
   m_CullTransparentMesh: 1
+--- !u!114 &496535255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496535251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e12906fcc91c442ba962b83549e3ac80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amount: 2
+  speed: 4
+  textOnStart: <color=white>-</color><wobble>Try Again?</wobble><color=white>-</color>
 --- !u!1 &502943948
 GameObject:
   m_ObjectHideFlags: 0
