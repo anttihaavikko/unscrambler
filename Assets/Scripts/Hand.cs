@@ -267,11 +267,6 @@ public class Hand : MonoBehaviour
             this.StartCoroutine(() =>
             {
                 scoreDisplay.Add(amount);
-
-                if (lives <= 0)
-                {
-                    scoreManager.SubmitScore("Antti", scoreDisplay.Value, level + 1, GetId());
-                }
             }, 0.25f);
         }
 
@@ -295,6 +290,11 @@ public class Hand : MonoBehaviour
         elements.Clear();
         
         styledEvalText.SetText($"{Spacer}<bulge>Game Over</bulge>{Spacer}");
+
+        this.StartCoroutine(() =>
+        {
+            scoreManager.SubmitScore(PlayerPrefs.GetString("PlayerName"), scoreDisplay.Value, level + 1, GetId());
+        }, 0.3f);
         
         endOptions.ShowAfter(0.5f);
     }

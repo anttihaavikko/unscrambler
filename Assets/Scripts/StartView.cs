@@ -56,7 +56,8 @@ public class StartView : MonoBehaviour
 
     public void StarGame()
     {
-        SceneChanger.Instance.ChangeScene("Main");
+        var scene = PlayerPrefs.HasKey("PlayerName") ? "Main" : "Name";
+        SceneChanger.Instance.ChangeScene(scene);
     }
 
     public void Quit()
