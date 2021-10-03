@@ -534,6 +534,7 @@ public class Hand : MonoBehaviour
         cam.BaseEffect(0.05f);
         calculatorShaker.Shake();
         
+        CancelInvoke(nameof(DoCalculations));
         Invoke(nameof(DoCalculations), 1f);
     }
 
