@@ -3904,6 +3904,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1579258568}
     m_Modifications:
+    - target: {fileID: 81897382675555793, guid: feaf1559e153244be86f484a70972236, type: 3}
+      propertyPath: isWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 81897382675555797, guid: feaf1559e153244be86f484a70972236, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -4432,6 +4436,7 @@ MonoBehaviour:
   doColors: 0
   backColor: {r: 0.1254902, g: 0.1254902, b: 0.11764706, a: 1}
   frontColor: {r: 1, g: 1, b: 1, a: 1}
+  isWorldSpace: 0
 --- !u!4 &968001896 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 81897382675555797, guid: feaf1559e153244be86f484a70972236, type: 3}
@@ -10431,6 +10436,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1579258568}
     m_Modifications:
+    - target: {fileID: 81897382675555793, guid: feaf1559e153244be86f484a70972236, type: 3}
+      propertyPath: isWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 81897382675555797, guid: feaf1559e153244be86f484a70972236, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -11483,6 +11492,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1579258568}
     m_Modifications:
+    - target: {fileID: 81897382675555793, guid: feaf1559e153244be86f484a70972236, type: 3}
+      propertyPath: isWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 81897382675555797, guid: feaf1559e153244be86f484a70972236, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -13033,6 +13046,7 @@ MonoBehaviour:
   doColors: 0
   backColor: {r: 0, g: 0, b: 0, a: 0}
   frontColor: {r: 0, g: 0, b: 0, a: 0}
+  isWorldSpace: 0
 --- !u!114 &1667149189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19598,6 +19612,7 @@ MonoBehaviour:
   doColors: 0
   backColor: {r: 0, g: 0, b: 0, a: 0}
   frontColor: {r: 0, g: 0, b: 0, a: 0}
+  isWorldSpace: 0
 --- !u!114 &2022866287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20052,6 +20067,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1579258568}
     m_Modifications:
+    - target: {fileID: 81897382675555793, guid: feaf1559e153244be86f484a70972236, type: 3}
+      propertyPath: isWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 81897382675555797, guid: feaf1559e153244be86f484a70972236, type: 3}
       propertyPath: m_RootOrder
       value: 1

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using AnttiStarterKit.Animations;
 using AnttiStarterKit.Extensions;
+using AnttiStarterKit.Managers;
 using TMPro;
 using UnityEngine;
 
@@ -55,13 +56,21 @@ public class ElementCard : MonoBehaviour
     private void OnMouseEnter()
     {
         if (card.Locked) return;
+        Swoosh();
         Tweener.ScaleToBounceOut(transform, baseSize * 1.1f, 0.1f);
     }
 
     private void OnMouseExit()
     {
         if (card.Locked) return;
+        Swoosh(0.75f);
         Tweener.ScaleToQuad(transform, baseSize, 0.15f);
+    }
+    
+    private void Swoosh(float volume = 1f)
+    {
+        var pos = transform.position;
+        AudioManager.Instance.PlayEffectFromCollection(1, pos, 0.3f * volume);
     }
 }
 

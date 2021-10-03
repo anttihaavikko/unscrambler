@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AnttiStarterKit.Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -23,6 +24,9 @@ namespace AnttiStarterKit.Animations
     
         [SerializeField] private Color backColor, frontColor;
 
+        [SerializeField] private bool isWorldSpace;
+        
+
         private Vector3 originalScale;
         private Color originalBackColor, originalFrontColor;
 
@@ -36,18 +40,17 @@ namespace AnttiStarterKit.Animations
 
         private Vector3 GetSoundPos()
         {
-            return cam.ScreenToWorldPoint(transform.position);
+            var position = transform.position;
+            return isWorldSpace ? position : cam.ScreenToWorldPoint(position);
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            Swoosh();
+            
             ApplyScaling(scaleAmount, TweenEasings.BounceEaseOut);
             ApplyRotation(Random.Range(-rotationAmount, rotationAmount), TweenEasings.BounceEaseOut);
             ApplyColors(backColor, frontColor);
-        
-            var pos = GetSoundPos();
-            // AudioManager.Instance.PlayEffectAt(53, pos, 0.22f);
-            // AudioManager.Instance.PlayEffectAt(49, pos, 0.718f);
         }
     
         private void ApplyScaling(float amount, Func<float, float> easing)
@@ -89,17 +92,22 @@ namespace AnttiStarterKit.Animations
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            Swoosh(0.75f);
             ApplyScaling(0, TweenEasings.BounceEaseOut);
             ApplyRotation(0, TweenEasings.BounceEaseOut);
             ApplyColors(originalBackColor, originalFrontColor);
         }
 
+        private void Swoosh(float volume = 1f)
+        {
+            var pos = GetSoundPos();
+            AudioManager.Instance.PlayEffectFromCollection(1, pos, 0.3f * volume);
+        }
+
         public void OnPointerClick(PointerEventData eventData)
         {
             var pos = GetSoundPos();
-            // AudioManager.Instance.PlayEffectAt(36, pos, 0.1f);
-            // AudioManager.Instance.PlayEffectAt(25, pos, 4f);
-            // AudioManager.Instance.PlayEffectAt(35, pos, 0.629f);
+            AudioManager.Instance.PlayEffectFromCollection(0, pos, 1.4f);
         }
     }
 }

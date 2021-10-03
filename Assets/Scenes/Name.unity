@@ -897,6 +897,7 @@ MonoBehaviour:
   doColors: 0
   backColor: {r: 0, g: 0, b: 0, a: 0}
   frontColor: {r: 0, g: 0, b: 0, a: 0}
+  isWorldSpace: 0
 --- !u!114 &161157234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1366,7 +1367,7 @@ MonoBehaviour:
   m_RegexValue: "^[0-9a-zA-Z\xE0\xE1\xE2\xE4\xE3\xE5\u0105\u010D\u0107\u0119\xE8\xE9\xEA\xEB\u0117\u012F\xEC\xED\xEE\xEF\u0142\u0144\xF2\xF3\xF4\xF6\xF5\xF8\xF9\xFA\xFB\xFC\u0173\u016B\xFF\xFD\u017C\u017A\xF1\xE7\u010D\u0161\u017E\xC0\xC1\xC2\xC4\xC3\xC5\u0104\u0106\u010C\u0116\u0118\xC8\xC9\xCA\xCB\xCC\xCD\xCE\xCF\u012E\u0141\u0143\xD2\xD3\xD4\xD6\xD5\xD8\xD9\xDA\xDB\xDC\u0172\u016A\u0178\xDD\u017B\u0179\xD1\xDF\xC7\u0152\xC6\u010C\u0160\u017D\u2202\xF0
     ,.-]+$"
   m_GlobalPointSize: 14
-  m_CharacterLimit: 20
+  m_CharacterLimit: 15
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -1792,6 +1793,63 @@ MonoBehaviour:
   rotationAmount: 1
   duration: 0.1
   decreasing: 1
+--- !u!1001 &740371091
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7716583931432275200, guid: 2555ab856a38d43df88ef33486aa807b, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716583931432275200, guid: 2555ab856a38d43df88ef33486aa807b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716583931432275200, guid: 2555ab856a38d43df88ef33486aa807b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716583931432275200, guid: 2555ab856a38d43df88ef33486aa807b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716583931432275200, guid: 2555ab856a38d43df88ef33486aa807b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716583931432275200, guid: 2555ab856a38d43df88ef33486aa807b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716583931432275200, guid: 2555ab856a38d43df88ef33486aa807b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716583931432275200, guid: 2555ab856a38d43df88ef33486aa807b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716583931432275200, guid: 2555ab856a38d43df88ef33486aa807b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716583931432275200, guid: 2555ab856a38d43df88ef33486aa807b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716583931432275200, guid: 2555ab856a38d43df88ef33486aa807b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716583931432275202, guid: 2555ab856a38d43df88ef33486aa807b, type: 3}
+      propertyPath: m_Name
+      value: Audio Manager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2555ab856a38d43df88ef33486aa807b, type: 3}
 --- !u!1 &791208866
 GameObject:
   m_ObjectHideFlags: 0
