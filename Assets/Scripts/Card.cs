@@ -14,6 +14,8 @@ public class Card : MonoBehaviour
 	[SerializeField] private SortingGroup sortingGroup;
 	[SerializeField] private float moveSpeed = 7f;
 	[SerializeField] private LayerMask areaMask;
+	
+	public bool Locked { get; private set; }
 
 	private bool dragging;
 	private Vector3 dragPoint;
@@ -150,7 +152,26 @@ public class Card : MonoBehaviour
 		moveDuration = 0f;
 	}
 
-	public void JustRemove() {
-		Destroy (gameObject);
+	public void DestroyAfterAnimation()
+	{
+		var delay = Random.Range(0f, 0.1f);
+		Invoke(nameof(DestroyAnimation), delay);
+	}
+
+	private void DestroyAnimation()
+	{
+		var pos = transform.position;
+		EffectManager.AddEffect(0, pos);
+		EffectManager.AddEffect(1, pos);
+		Tweener.ScaleToQuad(transform, Vector3.zero, 0.15f);
+		var angle = Random.Range(1, 5) * 180f;
+		Tweener.RotateToQuad(transform, Quaternion.Euler(0, 0, angle), 0.15f);
+		Locked = true;
+		Invoke(nameof(DoDestroy), 0.17f);
+	}
+
+	private void DoDestroy()
+	{
+		Destroy(gameObject);
 	}
 }

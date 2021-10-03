@@ -502,7 +502,8 @@ public class Hand : MonoBehaviour
         hand.RemoveAll();
         calculatorArea.RemoveAll();
         elements.Clear();
-        CreateCards();
+        
+        Invoke(nameof(CreateCards), 0.5f);
     }
 }
 

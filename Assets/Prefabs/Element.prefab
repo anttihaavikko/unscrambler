@@ -1129,6 +1129,7 @@ MonoBehaviour:
   mass: {fileID: 4572995100526145789}
   backgroundSprite: {fileID: 4572995099984950862}
   elements: {fileID: 11400000, guid: e12a3187726d448ef90b0aeb48e3cfb3, type: 2}
+  card: {fileID: 4572995101153495693}
 --- !u!1 &4572995101219018371
 GameObject:
   m_ObjectHideFlags: 0

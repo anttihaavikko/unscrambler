@@ -80,7 +80,7 @@ public class CardHolder : MonoBehaviour
 
 	public void RemoveAll()
 	{
-		cards.ForEach(c => Destroy(c.gameObject));
+		cards.ForEach(c => c.DestroyAfterAnimation());
 		cards.Clear();
 	}
 

@@ -11,6 +11,7 @@ public class ElementCard : MonoBehaviour
     [SerializeField] private TMP_Text number, abbreviation, title, mass;
     [SerializeField] private SpriteRenderer backgroundSprite;
     [SerializeField] private Elements elements;
+    [SerializeField] private Card card;
 
     private Element element;
     private Vector3 baseSize;
@@ -53,11 +54,13 @@ public class ElementCard : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        if (card.Locked) return;
         Tweener.ScaleToBounceOut(transform, baseSize * 1.1f, 0.1f);
     }
 
     private void OnMouseExit()
     {
+        if (card.Locked) return;
         Tweener.ScaleToQuad(transform, baseSize, 0.15f);
     }
 }
