@@ -37,10 +37,10 @@ public class WordDictionary : MonoBehaviour
             return word.Split('\t')[0];
         }).Distinct().ToDictionary(x => x, x => x);
 
-        Debug.Log("Loaded dictionary of " + words.Count + " words.");
+        // Debug.Log("Loaded dictionary of " + words.Count + " words.");
 
-        var sample = RandomWord();
-        Debug.Log("Random word sample: '" + sample + "'");
+        // var sample = RandomWord();
+        // Debug.Log("Random word sample: '" + sample + "'");
     }
 
     private void Start()
@@ -102,8 +102,8 @@ public class WordDictionary : MonoBehaviour
             return false;
         }
         
-        Debug.Log($"Picked word '{word}'");
-        Debug.Log(string.Join("-", parts));
+        // Debug.Log($"Picked word '{word}'");
+        // Debug.Log(string.Join("-", parts));
         solution = word;
 
         return true;
@@ -156,7 +156,7 @@ public class WordDictionary : MonoBehaviour
 
         if (a == default || b == default) return;
         
-        Debug.Log($"Will split {target} ({e.number}) => {a.abbreviation} and {b.abbreviation}");
+        // Debug.Log($"Will split {target} ({e.number}) => {a.abbreviation} and {b.abbreviation}");
         
         parts.Remove(target);
         parts.Add(a.abbreviation);
