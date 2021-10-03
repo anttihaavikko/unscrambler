@@ -1584,6 +1584,10 @@ MonoBehaviour:
   styledHelpText: {fileID: 664263151}
   styledEvalText: {fileID: 426750376}
   multiPulsater: {fileID: 11404469}
+  errorSound: {fileID: 11400000, guid: bac2ed2b673964589b87f226e1b2a207, type: 2}
+  launchSound: {fileID: 11400000, guid: 651ecaf50f47f4fadb6a5618c36bb73c, type: 2}
+  multiSound: {fileID: 11400000, guid: 8e812736e56a6488cabbec1b05119622, type: 2}
+  mainCam: {fileID: 519420031}
 --- !u!1 &386770475
 GameObject:
   m_ObjectHideFlags: 0
@@ -3648,6 +3652,7 @@ MonoBehaviour:
   - {fileID: 178775558}
   - {fileID: 1756888938}
   cam: {fileID: 519420031}
+  breakSound: {fileID: 11400000, guid: 72a462c3f038b4fbaa031bb4f8c91392, type: 2}
 --- !u!1001 &776909822
 PrefabInstance:
   m_ObjectHideFlags: 0

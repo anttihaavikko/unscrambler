@@ -5,6 +5,7 @@ using System.Linq;
 using AnttiStarterKit.Animations;
 using AnttiStarterKit.Extensions;
 using AnttiStarterKit.Managers;
+using AnttiStarterKit.ScriptableObjects;
 using AnttiStarterKit.Utils;
 using AnttiStarterKit.Visuals;
 using Cinemachine;
@@ -38,6 +39,8 @@ public class Hand : MonoBehaviour
     [SerializeField] private ScoreManager scoreManager;
     [SerializeField] private StyledText styledHelpText, styledEvalText;
     [SerializeField] private Pulsater multiPulsater;
+    [SerializeField] private SoundComposition errorSound, launchSound, multiSound;
+    [SerializeField] private Camera mainCam;
 
     private int level;
     private List<ElementCard> elements;
@@ -50,6 +53,7 @@ public class Hand : MonoBehaviour
     private float multiplierTime = 60f;
     private int multiplier = 5;
     private bool doneDealing;
+    private Vector3 multiPos;
 
     private Operation operation = Operation.Sum;
 
@@ -94,6 +98,8 @@ public class Hand : MonoBehaviour
         multiplierTimer.type = Image.Type.Filled;
         multiplierTimer.fillMethod = Image.FillMethod.Radial360;
         multiplierTimer.fillAmount = 1f;
+
+        multiPos = mainCam.ScreenToWorldPoint(multiplierAppearer.transform.position).WhereZ(0);
     }
 
     private void CooldownMultiplier()
@@ -104,6 +110,7 @@ public class Hand : MonoBehaviour
         {
             multiPulsater.Pulsate();
             SetMultiplier(multiplier - 1);
+            multiSound.Play(multiPos);
         }
         
         multiplierTimer.fillAmount = Mathf.Max(0, multiplierTime / 60f);
@@ -179,11 +186,15 @@ public class Hand : MonoBehaviour
                     
                     if (penalty == 0 && previousPenalty != 0)
                     {
-                        confettiCannons.ForEach(ps => ps.Play());
+                        confettiCannons.ForEach(ps =>
+                        {
+                            ps.Play();
+                            launchSound.Play(ps.transform.position, 0.6f);
+                        });
                         cam.BaseEffect(0.3f);
 
                         var pos = Vector3.zero;
-                        const float vol = 1.5f;
+                        const float vol = 1.75f;
                         
                         AudioManager.Instance.PlayEffectFromCollection(2, pos, vol);
                         AudioManager.Instance.PlayEffectFromCollection(3, pos, vol);
@@ -406,12 +417,18 @@ public class Hand : MonoBehaviour
         PreviewCalculation(matches[0], matches[1]);
     }
 
+    private void CalculationErrorSound()
+    {
+        errorSound.Play(calculatorDisplay.transform.position, 0.7f);
+    }
+
     public void RunCalculations()
     {
         if (calculatorArea.CardCount() != 2)
         {
             calculatorDisplay.text = "ERR!!!";
             cam.BaseEffect(0.1f);
+            CalculationErrorSound();
             return;
         }
         
@@ -423,6 +440,7 @@ public class Hand : MonoBehaviour
         {
             calculatorDisplay.text = "ERR!!!";
             cam.BaseEffect(0.1f);
+            CalculationErrorSound();
             return;
         }
         
@@ -471,6 +489,7 @@ public class Hand : MonoBehaviour
         }
         
         calculatorShaker.Shake();
+        CalculationErrorSound();
     }
 
     private int GetOperationResult(ElementCard first, ElementCard second)
