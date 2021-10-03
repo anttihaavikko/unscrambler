@@ -285,7 +285,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 20
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1306,7 +1306,7 @@ ParticleSystem:
         ctime5: 0
         ctime6: 0
         ctime7: 0
-        atime0: 45104
+        atime0: 53777
         atime1: 65535
         atime2: 0
         atime3: 0
