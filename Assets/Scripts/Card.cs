@@ -88,7 +88,8 @@ public class Card : MonoBehaviour
 		UpdateArea();
 	}
 
-	public void OnMouseDown() {
+	public void OnMouseDown()
+	{
 
 		currentSpeed = moveSpeed + Random.Range(-0.5f, 0.5f);
 		
@@ -99,6 +100,8 @@ public class Card : MonoBehaviour
 		dragPoint = Vector3.zero;
 		
 		currentHolder.RemoveCard (this);
+		
+		AudioManager.Instance.PlayEffectFromCollection(0, startPoint, 0.8f);
 	}
 
 	public void SetHeight(bool raised)
@@ -114,6 +117,8 @@ public class Card : MonoBehaviour
 		
 		SetHeight (false);
 		currentHolder.AddCard (this, false);
+		
+		AudioManager.Instance.PlayEffectFromCollection(0, transform.position, 0.8f);
 	}
 
 	private void UpdateArea()
@@ -150,6 +155,10 @@ public class Card : MonoBehaviour
 		fromPosition = transform.position;
 		toPosition = pos;
 		moveDuration = 0f;
+		if ((fromPosition - toPosition).magnitude > 1f)
+		{
+			AudioManager.Instance.PlayEffectFromCollection(1, fromPosition, 1.5f);	
+		}
 	}
 
 	public void DestroyAfterAnimation()
@@ -161,6 +170,7 @@ public class Card : MonoBehaviour
 	private void DestroyAnimation()
 	{
 		var pos = transform.position;
+		AudioManager.Instance.PlayEffectFromCollection(0, pos, 1.5f);
 		EffectManager.AddEffect(0, pos);
 		EffectManager.AddEffect(1, pos);
 		Tweener.ScaleToQuad(transform, Vector3.zero, 0.15f);

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AnttiStarterKit.Animations;
 using AnttiStarterKit.Extensions;
+using AnttiStarterKit.Managers;
 using AnttiStarterKit.Utils;
 using AnttiStarterKit.Visuals;
 using Cinemachine;
@@ -11,6 +12,7 @@ using Leaderboards;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Hand : MonoBehaviour
 {
@@ -179,6 +181,24 @@ public class Hand : MonoBehaviour
                     {
                         confettiCannons.ForEach(ps => ps.Play());
                         cam.BaseEffect(0.3f);
+
+                        var pos = Vector3.zero;
+                        const float vol = 1.5f;
+                        
+                        AudioManager.Instance.PlayEffectFromCollection(2, pos, vol);
+                        AudioManager.Instance.PlayEffectFromCollection(3, pos, vol);
+                        
+                        this.StartCoroutine(() =>
+                        {
+                            AudioManager.Instance.PlayEffectFromCollection(3, pos, vol);
+                            AudioManager.Instance.PlayEffectFromCollection(2, pos, vol);
+                        }, Random.Range(0f, 0.5f));
+                        
+                        this.StartCoroutine(() =>
+                        {
+                            AudioManager.Instance.PlayEffectFromCollection(3, pos, vol);
+                            AudioManager.Instance.PlayEffectFromCollection(2, pos, vol);
+                        }, Random.Range(0f, 0.5f));
                     }
                     
                     var message = penalty == 0 ? $"{Spacer}<wobble>Perfect word found!</wobble>{Spacer}" : $"Current best: <bulge>{word.ToUpper()}</bulge>";

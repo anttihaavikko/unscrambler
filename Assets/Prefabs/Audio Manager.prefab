@@ -49,7 +49,11 @@ MonoBehaviour:
   musics: []
   volume: 0.5
   effects: []
-  soundCollections: []
+  soundCollections:
+  - {fileID: 11400000, guid: 96ad8f6d8fcde42968f514875628d19d, type: 2}
+  - {fileID: 11400000, guid: df0cbc31dbdba459ca5684345c67c4ef, type: 2}
+  - {fileID: 11400000, guid: 596df6d94c92b41a4a70ed9253bd4625, type: 2}
+  - {fileID: 11400000, guid: 4f1ff0c32b6dd4cb39c97d16c7434705, type: 2}
 --- !u!1 &7716583932667442335
 GameObject:
   m_ObjectHideFlags: 0

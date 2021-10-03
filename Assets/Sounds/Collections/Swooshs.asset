@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ed6741a13249ff91a11647becccdea, type: 3}
+  m_Name: Swooshs
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: dc7cec88d40994db386b7a061cf628c9, type: 3}
+  - {fileID: 8300000, guid: 2910a54975fc944dfa974da6cedb94d1, type: 3}
+  - {fileID: 8300000, guid: 66a42e53dc815413587e670e6b971763, type: 3}
+  - {fileID: 8300000, guid: 209eeff475cfe4cab9532ffb3b94959c, type: 3}
+  - {fileID: 8300000, guid: fdb0dc5006d614fc6aca78bc632b7e4a, type: 3}
+  - {fileID: 8300000, guid: 98b8bd5b994694d1b96f845f2fd6d61c, type: 3}
+  - {fileID: 8300000, guid: d16c50b6912ca4ee9904251ff18739f7, type: 3}
