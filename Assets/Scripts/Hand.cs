@@ -188,8 +188,10 @@ public class Hand : MonoBehaviour
                     {
                         confettiCannons.ForEach(ps =>
                         {
+                            var pos = ps.transform.position;
                             ps.Play();
-                            launchSound.Play(ps.transform.position, 0.6f);
+                            launchSound.Play(pos, 0.6f);
+                            EffectManager.AddEffect(3, pos);
                         });
                         cam.BaseEffect(0.3f);
 
@@ -482,10 +484,12 @@ public class Hand : MonoBehaviour
 
         if (e != default)
         {
+            var pos = calculatorArea.transform.position;
             elements.Remove(first);
             elements.Remove(second);
             calculatorArea.RemoveAll();
-            CreateCard(e.abbreviation, calculatorArea.transform.position, calculatorArea);
+            CreateCard(e.abbreviation, pos, calculatorArea);
+            EffectManager.AddEffect(3, pos);
             UpdateOperation();
             return;
         }
