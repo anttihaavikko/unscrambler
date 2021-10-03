@@ -39,7 +39,7 @@ public class Hand : MonoBehaviour
     [SerializeField] private ScoreManager scoreManager;
     [SerializeField] private StyledText styledHelpText, styledEvalText;
     [SerializeField] private Pulsater multiPulsater;
-    [SerializeField] private SoundComposition errorSound, launchSound, multiSound;
+    [SerializeField] private SoundComposition errorSound, launchSound, multiSound, blipSound;
     [SerializeField] private Camera mainCam;
 
     private int level;
@@ -473,6 +473,8 @@ public class Hand : MonoBehaviour
 
     private void Operate(ElementCard first, ElementCard second)
     {
+        MachineBlip();
+        
         var result = GetOperationResult(first, second);
         var e = elementList.GetMatch(result);
         
@@ -516,10 +518,13 @@ public class Hand : MonoBehaviour
         var e = elementList.GetMatch(result);
         var res = e != default ? $"{e.abbreviation} ({e.number})" : "ERR";
         calculatorDisplay.text = $"{first.GetForCalculator()} {GetOperationSign()} {second.GetForCalculator()} = {res}";
+        MachineBlip();
     }
     
     public void SwitchOperation(int dir)
     {
+        MachineBlip();
+        
         var cur = (int)operation;
         var op = (cur + dir) % 4;
         if (op < 0) op = 3;
@@ -532,8 +537,14 @@ public class Hand : MonoBehaviour
         Invoke(nameof(DoCalculations), 1f);
     }
 
+    private void MachineBlip()
+    {
+        blipSound.Play(calculatorDisplay.transform.position, 0.6f);   
+    }
+
     public void ResetLevel()
     {
+        MachineBlip();
         if (!elements.Any() || !doneDealing) return;
         
         calculatorShaker.Shake();
