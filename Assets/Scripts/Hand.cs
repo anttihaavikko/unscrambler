@@ -515,15 +515,13 @@ public class Hand : MonoBehaviour
 
     public void ResetLevel()
     {
-        if (!elements.Any()) return;
+        if (!elements.Any() || !doneDealing) return;
         
         calculatorShaker.Shake();
         cam.BaseEffect(0.05f);
         evalAppearer.Hide();
         proceedAppearer.Hide();
-        hand.RemoveAll();
-        calculatorArea.RemoveAll();
-        elements.Clear();
+        ClearTiles();
         
         Invoke(nameof(CreateCards), 0.5f);
     }
