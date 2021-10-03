@@ -25,7 +25,8 @@ namespace AnttiStarterKit.Animations
         [SerializeField] private Color backColor, frontColor;
 
         [SerializeField] private bool isWorldSpace;
-        
+
+        public Action<bool> hoverChanged;
 
         private Vector3 originalScale;
         private Color originalBackColor, originalFrontColor;
@@ -46,6 +47,8 @@ namespace AnttiStarterKit.Animations
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            hoverChanged?.Invoke(true);
+            
             Swoosh();
             
             ApplyScaling(scaleAmount, TweenEasings.BounceEaseOut);
@@ -92,6 +95,7 @@ namespace AnttiStarterKit.Animations
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            hoverChanged?.Invoke(false);
             Swoosh(0.75f);
             ApplyScaling(0, TweenEasings.BounceEaseOut);
             ApplyRotation(0, TweenEasings.BounceEaseOut);

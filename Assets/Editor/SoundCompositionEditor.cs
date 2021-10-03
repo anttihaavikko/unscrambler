@@ -110,6 +110,8 @@ namespace Editor
             EditorGUILayout.EndVertical();
             
             DrawPlayer();
+
+            serializedObject.ApplyModifiedProperties();
         }
 
         private void Save()

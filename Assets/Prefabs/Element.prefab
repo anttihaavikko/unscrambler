@@ -1110,6 +1110,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   cardCollider: {fileID: 4572995101153495692}
+  cursorManager: {fileID: 11400000, guid: 69ededddc99774974976955d14c5d297, type: 2}
   currentHolder: {fileID: 0}
   shadow: {fileID: 4572995101379782873}
 --- !u!114 &4716483480286327362
@@ -1131,6 +1132,7 @@ MonoBehaviour:
   backgroundSprite: {fileID: 4572995099984950862}
   elements: {fileID: 11400000, guid: e12a3187726d448ef90b0aeb48e3cfb3, type: 2}
   card: {fileID: 4572995101153495693}
+  cursorManager: {fileID: 11400000, guid: 69ededddc99774974976955d14c5d297, type: 2}
 --- !u!1 &4572995101219018371
 GameObject:
   m_ObjectHideFlags: 0

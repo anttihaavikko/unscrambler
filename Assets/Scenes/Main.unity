@@ -1719,6 +1719,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &398402614 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 81897382675555802, guid: feaf1559e153244be86f484a70972236, type: 3}
+  m_PrefabInstance: {fileID: 81897383102491837}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &398402615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398402614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43badbde910c4b6bb9a8fc2acb8e6a0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorManager: {fileID: 11400000, guid: 69ededddc99774974976955d14c5d297, type: 2}
 --- !u!1 &413728229
 GameObject:
   m_ObjectHideFlags: 0
@@ -4312,6 +4330,7 @@ GameObject:
   - component: {fileID: 967484517}
   - component: {fileID: 967484516}
   - component: {fileID: 967484519}
+  - component: {fileID: 967484520}
   m_Layer: 5
   m_Name: Evaluate Button
   m_TagString: Untagged
@@ -4462,6 +4481,19 @@ MonoBehaviour:
   backColor: {r: 0.1254902, g: 0.1254902, b: 0.11764706, a: 1}
   frontColor: {r: 1, g: 1, b: 1, a: 1}
   isWorldSpace: 0
+--- !u!114 &967484520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967484514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43badbde910c4b6bb9a8fc2acb8e6a0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorManager: {fileID: 11400000, guid: 69ededddc99774974976955d14c5d297, type: 2}
 --- !u!4 &968001896 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 81897382675555797, guid: feaf1559e153244be86f484a70972236, type: 3}
@@ -10794,6 +10826,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1191327614 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 81897382675555802, guid: feaf1559e153244be86f484a70972236, type: 3}
+  m_PrefabInstance: {fileID: 1162974566}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1191327615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191327614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43badbde910c4b6bb9a8fc2acb8e6a0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorManager: {fileID: 11400000, guid: 69ededddc99774974976955d14c5d297, type: 2}
 --- !u!1 &1226665599
 GameObject:
   m_ObjectHideFlags: 0
@@ -11816,6 +11866,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415962927}
   m_CullTransparentMesh: 1
+--- !u!1 &1433161337 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 81897382675555802, guid: feaf1559e153244be86f484a70972236, type: 3}
+  m_PrefabInstance: {fileID: 870506275}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1433161338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433161337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43badbde910c4b6bb9a8fc2acb8e6a0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorManager: {fileID: 11400000, guid: 69ededddc99774974976955d14c5d297, type: 2}
 --- !u!1 &1481465631
 GameObject:
   m_ObjectHideFlags: 0
@@ -11943,6 +12011,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1494052364 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 81897382675555802, guid: feaf1559e153244be86f484a70972236, type: 3}
+  m_PrefabInstance: {fileID: 1405717135}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1494052365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494052364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43badbde910c4b6bb9a8fc2acb8e6a0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorManager: {fileID: 11400000, guid: 69ededddc99774974976955d14c5d297, type: 2}
 --- !u!1 &1501927713
 GameObject:
   m_ObjectHideFlags: 0
@@ -13125,6 +13211,7 @@ GameObject:
   - component: {fileID: 1667149190}
   - component: {fileID: 1667149189}
   - component: {fileID: 1667149188}
+  - component: {fileID: 1667149192}
   m_Layer: 5
   m_Name: Back Button
   m_TagString: Untagged
@@ -13270,6 +13357,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1667149186}
   m_CullTransparentMesh: 1
+--- !u!114 &1667149192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667149186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43badbde910c4b6bb9a8fc2acb8e6a0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorManager: {fileID: 11400000, guid: 69ededddc99774974976955d14c5d297, type: 2}
 --- !u!1 &1679972511
 GameObject:
   m_ObjectHideFlags: 0
@@ -19691,6 +19791,7 @@ GameObject:
   - component: {fileID: 2022866288}
   - component: {fileID: 2022866287}
   - component: {fileID: 2022866286}
+  - component: {fileID: 2022866290}
   m_Layer: 5
   m_Name: Again Button
   m_TagString: Untagged
@@ -19836,6 +19937,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2022866284}
   m_CullTransparentMesh: 1
+--- !u!114 &2022866290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022866284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43badbde910c4b6bb9a8fc2acb8e6a0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorManager: {fileID: 11400000, guid: 69ededddc99774974976955d14c5d297, type: 2}
 --- !u!1001 &2030624096
 PrefabInstance:
   m_ObjectHideFlags: 0

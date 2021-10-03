@@ -16,6 +16,7 @@ public class Card : MonoBehaviour
 	[SerializeField] private float moveSpeed = 7f;
 	[SerializeField] private LayerMask areaMask;
 	[SerializeField] private Collider2D cardCollider;
+	[SerializeField] private CursorManager cursorManager;
 	
 	public bool Locked { get; private set; }
 
@@ -115,6 +116,8 @@ public class Card : MonoBehaviour
 		currentHolder.RemoveCard (this);
 		
 		AudioManager.Instance.PlayEffectFromCollection(0, startPoint, 0.8f);
+		
+		cursorManager.Grab();
 	}
 
 	public void SetHeight(bool raised)
@@ -134,6 +137,8 @@ public class Card : MonoBehaviour
 		currentHolder.AddCard (this, false);
 		
 		AudioManager.Instance.PlayEffectFromCollection(0, transform.position, 0.8f);
+		
+		cursorManager.Hover();
 	}
 
 	private void UpdateArea()

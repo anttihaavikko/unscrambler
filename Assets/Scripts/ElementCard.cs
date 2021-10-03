@@ -13,6 +13,7 @@ public class ElementCard : MonoBehaviour
     [SerializeField] private SpriteRenderer backgroundSprite;
     [SerializeField] private Elements elements;
     [SerializeField] private Card card;
+    [SerializeField] private CursorManager cursorManager;
 
     private Element element;
     private Vector3 baseSize;
@@ -58,6 +59,7 @@ public class ElementCard : MonoBehaviour
         if (CanHover()) return;
         Swoosh();
         Tweener.ScaleToBounceOut(transform, baseSize * 1.1f, 0.1f);
+        cursorManager.Hover();
     }
 
     private void OnMouseExit()
@@ -65,6 +67,7 @@ public class ElementCard : MonoBehaviour
         if (CanHover()) return;
         Swoosh(0.75f);
         Tweener.ScaleToQuad(transform, baseSize, 0.15f);
+        cursorManager.Normal();
     }
 
     private bool CanHover()
