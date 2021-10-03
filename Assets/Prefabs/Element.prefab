@@ -1109,6 +1109,7 @@ MonoBehaviour:
   areaMask:
     serializedVersion: 2
     m_Bits: 64
+  cardCollider: {fileID: 4572995101153495692}
   currentHolder: {fileID: 0}
   shadow: {fileID: 4572995101379782873}
 --- !u!114 &4716483480286327362

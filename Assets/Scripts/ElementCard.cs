@@ -55,16 +55,21 @@ public class ElementCard : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (card.Locked || card.IsDragging) return;
+        if (CanHover()) return;
         Swoosh();
         Tweener.ScaleToBounceOut(transform, baseSize * 1.1f, 0.1f);
     }
 
     private void OnMouseExit()
     {
-        if (card.Locked || card.IsDragging) return;
+        if (CanHover()) return;
         Swoosh(0.75f);
         Tweener.ScaleToQuad(transform, baseSize, 0.15f);
+    }
+
+    private bool CanHover()
+    {
+        return card.Locked || card.IsDragging || Input.GetMouseButton(0);
     }
     
     private void Swoosh(float volume = 1f)

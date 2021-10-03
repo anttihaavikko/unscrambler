@@ -15,6 +15,7 @@ public class Card : MonoBehaviour
 	[SerializeField] private SortingGroup sortingGroup;
 	[SerializeField] private float moveSpeed = 7f;
 	[SerializeField] private LayerMask areaMask;
+	[SerializeField] private Collider2D cardCollider;
 	
 	public bool Locked { get; private set; }
 
@@ -52,6 +53,9 @@ public class Card : MonoBehaviour
 
 		if (dragging)
 		{
+			UpdateArea();
+			currentHolder.PreviewCard (this);
+			
 			var mousePos = GetMousePosInWorld();
 
 			transform.position = new Vector3 (mousePos.x, mousePos.y, height * 0.5f) + dragPoint;
@@ -95,13 +99,10 @@ public class Card : MonoBehaviour
 		transform.rotation = Quaternion.RotateTowards (transform.rotation, Quaternion.Euler (new Vector3 (-ydiff, xdiff, 0)), 0.5f);
 	}
 
-	public void OnMouseDrag()
-	{
-		UpdateArea();
-	}
-
 	public void OnMouseDown()
 	{
+		cardCollider.enabled = false;
+		
 		currentSpeed = moveSpeed + Random.Range(-0.5f, 0.5f);
 		
 		SetHeight (true);
@@ -124,6 +125,8 @@ public class Card : MonoBehaviour
 
 	public void OnMouseUp()
 	{
+		cardCollider.enabled = true;
+		
 		UpdateArea();
 
 		SetHeight(false);
@@ -149,12 +152,6 @@ public class Card : MonoBehaviour
 				
 				currentHolder = area.GetComponent<CardHolder>();	
 			}
-		}
-	}
-
-	void OnMouseOver() {
-		if (dragging) {
-			currentHolder.PreviewCard (this);
 		}
 	}
 
