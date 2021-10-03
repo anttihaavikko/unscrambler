@@ -41,6 +41,7 @@ public class Hand : MonoBehaviour
     [SerializeField] private Pulsater multiPulsater;
     [SerializeField] private SoundComposition errorSound, launchSound, multiSound, blipSound;
     [SerializeField] private Camera mainCam;
+    [SerializeField] private WordDefiner wordDefiner;
 
     private int level;
     private List<ElementCard> elements;
@@ -79,6 +80,8 @@ public class Hand : MonoBehaviour
         new LevelDefinition(10, 4, new List<Operation> { Operation.Sum, Operation.Sub, Operation.Mul, Operation.Div }),
         new LevelDefinition(10, 5, new List<Operation> { Operation.Sum, Operation.Sub, Operation.Mul, Operation.Div }),
     };
+
+    private bool showingHelp;
 
     private void Awake()
     {
@@ -219,7 +222,12 @@ public class Hand : MonoBehaviour
                     {
                         AudioManager.Instance.Highpass(false);
                     }
-                    
+
+                    if (!showingHelp)
+                    {
+                        wordDefiner.DefineWord(word);   
+                    }
+
                     var message = penalty == 0 ? $"{Spacer}<wobble>Perfect word found!</wobble>{Spacer}" : $"Current best: <bulge>{word.ToUpper()}</bulge>";
                     styledEvalText.SetText(message);
                     helpSeen = true;
@@ -321,17 +329,22 @@ public class Hand : MonoBehaviour
 
         lives -= penalty;
         hearts.LoseLives(penalty);
+        var startDelay = 0f;
 
         if (penalty > 0)
         {
             helpText.ShowAfter(0.3f);
-            styledHelpText.SetText($"Perfect solution was: <bulge>{wordDictionary.GetWord().ToUpper()}</bulge>");
+            var word = wordDictionary.GetWord();
+            styledHelpText.SetText($"Perfect solution was: <bulge>{word.ToUpper()}</bulge>");
+            wordDefiner.DefineWord(word, true);
             AudioManager.Instance.Lowpass();
+            showingHelp = true;
+            startDelay = 2f;
         }
 
         if (lives > 0)
         {
-            NextLevel();
+            NextLevel(startDelay);
             PlayFanfare(4);
             return;
         }
@@ -378,6 +391,7 @@ public class Hand : MonoBehaviour
         if (helpSeen)
         {
             helpText.Hide();
+            showingHelp = false;
         }
         
         if (evaluationProcess != null)
@@ -396,17 +410,21 @@ public class Hand : MonoBehaviour
         wordDictionary.GenerateWord(def.tiles, def.splits, def.operations);
         SetMultiplier(5);
         multiplierAppearer.Show();
+        
+        wordDefiner.appearer.Hide();
 
         if (level == 0)
         {
             helpText.ShowAfter(1.25f);
             styledHelpText.SetText($"{Spacer}Drag elements to <wobble>correct order</wobble> to form a word...{Spacer}");
+            showingHelp = true;
         }
 
         if (level == 2)
         {
             helpText.ShowAfter(0.1f);
             styledHelpText.SetText($"Use the <wobble>combiner machine</wobble> to merge elements...");
+            showingHelp = true;
         }
 
         if (def.splits > 0)
@@ -424,13 +442,13 @@ public class Hand : MonoBehaviour
         calculatorArea.RemoveAll();
     }
 
-    private void NextLevel()
+    private void NextLevel(float delay = 0f)
     {
         level++;
         ClearTiles();
-        Invoke(nameof(NewWord), 3f);
+        Invoke(nameof(NewWord), 3f + delay);
 
-        evalAppearer.HideWithDelay(0.25f);
+        evalAppearer.HideWithDelay(0.25f + delay);
     }
     
     private void DoCalculations()

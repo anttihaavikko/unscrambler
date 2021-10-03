@@ -25,8 +25,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.175"
-     inkscape:cx="5434.4391"
-     inkscape:cy="-840.61541"
+     inkscape:cx="8463.0105"
+     inkscape:cy="1422.2417"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -189,6 +189,34 @@
        id="path853"
        style="fill:#ffffff;stroke:#000000;stroke-width:25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 1617.3847,-149.16285 196.7806,369.13831 31.6558,-140.701837 140.7014,-31.65545 z"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-xdpi="25"
+       inkscape:export-ydpi="25" />
+    <path
+       id="path853-9-6"
+       style="fill:#000000;fill-opacity:0.25;stroke:none;stroke-width:29.1602;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 2206.9481,-33.692784 2598.3634,257.6209 2737.0473,149.39472 2694.2969,-10.017181 Z"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-xdpi="25"
+       inkscape:export-ydpi="25" />
+    <path
+       id="path853-6"
+       style="fill:#ffffff;stroke:#000000;stroke-width:25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 2246.2895,-52.561795 335.5731,249.752685 118.217,-86.31683 -35.9702,-143.137948 z"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-xdpi="25"
+       inkscape:export-ydpi="25" />
+    <path
+       id="path853-9-0"
+       style="fill:#000000;fill-opacity:0.25;stroke:none;stroke-width:29.1602;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 1978.7532,376.00924 229.5266,430.56611 201.7212,-17.46109 -0.6822,-183.57796 z"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-xdpi="25"
+       inkscape:export-ydpi="25" />
+    <path
+       id="path853-1"
+       style="fill:#ffffff;stroke:#000000;stroke-width:25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 2016.1641,372.80989 196.7806,369.13831 163.1915,-12.18994 9.1657,-160.16735 z"
        sodipodi:nodetypes="ccccc"
        inkscape:export-xdpi="25"
        inkscape:export-ydpi="25" />
