@@ -1698,6 +1698,7 @@ MonoBehaviour:
   effects:
   - {fileID: 5427275002781990538, guid: 151e945063c9543d287a3bb3c0ad8ef7, type: 3}
   - {fileID: 5017035468760026173, guid: 76ee7d0a3b566468fa7bc83c1aa55be6, type: 3}
+  - {fileID: 6534573422350927400, guid: e2b1684ed806a44b58a654d8ca5164f1, type: 3}
 --- !u!4 &388527887
 Transform:
   m_ObjectHideFlags: 0
@@ -3646,6 +3647,7 @@ MonoBehaviour:
   - {fileID: 1935067513}
   - {fileID: 178775558}
   - {fileID: 1756888938}
+  cam: {fileID: 519420031}
 --- !u!1001 &776909822
 PrefabInstance:
   m_ObjectHideFlags: 0
