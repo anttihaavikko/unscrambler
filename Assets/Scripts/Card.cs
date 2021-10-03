@@ -7,6 +7,7 @@ using AnttiStarterKit.Visuals;
 using UnityEngine;
 using UnityEngine.Rendering;
 using Random = UnityEngine.Random;
+using AnttiStarterKit.Extensions;
 
 public class Card : MonoBehaviour
 {
@@ -34,23 +35,24 @@ public class Card : MonoBehaviour
 	public SpriteRenderer shadow;
 
 	private Vector3 shadowScale;
+	private Camera cam;
+
+	public bool IsDragging => dragging;
 
 	private void Start ()
 	{
 		shadowScale = shadow.transform.localScale;
 		currentSpeed = moveSpeed;
+		cam = Camera.main;
 	}
 
 	private void Update ()
 	{
-
 		var lastPos = transform.position;
 
 		if (dragging)
 		{
-			var mousePos = Input.mousePosition;
-			mousePos.z = -Camera.main.transform.position.z + height;
-			mousePos = Camera.main.ScreenToWorldPoint (mousePos);
+			var mousePos = GetMousePosInWorld();
 
 			transform.position = new Vector3 (mousePos.x, mousePos.y, height * 0.5f) + dragPoint;
 		}
@@ -73,6 +75,14 @@ public class Card : MonoBehaviour
 			position;
 	}
 
+	private Vector3 GetMousePosInWorld()
+	{
+		var mousePos = Input.mousePosition;
+		mousePos.z = -cam.transform.position.z + height;
+		mousePos = cam.ScreenToWorldPoint(mousePos);
+		return mousePos;
+	}
+
 	private void Tilt(Vector3 prevPos, Vector3 curPos) {
 		float maxAngle = 10f;
 
@@ -92,14 +102,14 @@ public class Card : MonoBehaviour
 
 	public void OnMouseDown()
 	{
-
 		currentSpeed = moveSpeed + Random.Range(-0.5f, 0.5f);
 		
 		SetHeight (true);
+		sortingGroup.sortingOrder = 2;
 
 		startPoint = transform.position;
 
-		dragPoint = Vector3.zero;
+		dragPoint = startPoint - GetMousePosInWorld();
 		
 		currentHolder.RemoveCard (this);
 		
@@ -110,14 +120,14 @@ public class Card : MonoBehaviour
 	{
 		dragging = raised;
 		height = raised ? -1f : 0f;
-		sortingGroup.sortingOrder = raised ? 2 : 1;
 	}
 
 	public void OnMouseUp()
 	{
 		UpdateArea();
-		
-		SetHeight (false);
+
+		SetHeight(false);
+		this.StartCoroutine(() => sortingGroup.sortingOrder = 1, 0.3f);
 		currentHolder.AddCard (this, false);
 		
 		AudioManager.Instance.PlayEffectFromCollection(0, transform.position, 0.8f);

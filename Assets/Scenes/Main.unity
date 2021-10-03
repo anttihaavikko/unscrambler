@@ -1833,7 +1833,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: qwe
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b78b25b4c8de04103a3f269f9a40f99d, type: 2}
   m_sharedMaterial: {fileID: 2854094841905853275, guid: b78b25b4c8de04103a3f269f9a40f99d, type: 2}
@@ -20076,6 +20076,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2076606095}
   m_CullTransparentMesh: 1
+--- !u!1 &2100821857 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7716583932667442335, guid: 2555ab856a38d43df88ef33486aa807b, type: 3}
+  m_PrefabInstance: {fileID: 7716583931835144122}
+  m_PrefabAsset: {fileID: 0}
+--- !u!165 &2100821860
+AudioHighPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100821857}
+  m_Enabled: 1
+  m_CutoffFrequency: 10
+  m_HighpassResonanceQ: 2
+--- !u!169 &2100821861
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100821857}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_LowpassResonanceQ: 2
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2110809134
 GameObject:
   m_ObjectHideFlags: 0
@@ -20309,6 +20349,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Audio Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 7716583931432275203, guid: 2555ab856a38d43df88ef33486aa807b, type: 3}
+      propertyPath: lowpass
+      value: 
+      objectReference: {fileID: 2100821861}
+    - target: {fileID: 7716583931432275203, guid: 2555ab856a38d43df88ef33486aa807b, type: 3}
+      propertyPath: highpass
+      value: 
+      objectReference: {fileID: 2100821860}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2555ab856a38d43df88ef33486aa807b, type: 3}
 --- !u!1001 &8029089404584487709
