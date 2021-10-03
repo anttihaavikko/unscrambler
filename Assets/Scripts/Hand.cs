@@ -7,6 +7,7 @@ using AnttiStarterKit.Extensions;
 using AnttiStarterKit.Utils;
 using AnttiStarterKit.Visuals;
 using Cinemachine;
+using Leaderboards;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,6 +34,7 @@ public class Hand : MonoBehaviour
     [SerializeField] private List<ParticleSystem> confettiCannons;
     [SerializeField] private EffectCamera cam;
     [SerializeField] private Shaker calculatorShaker;
+    [SerializeField] private ScoreManager scoreManager;
 
     private int level;
     private List<ElementCard> elements;
@@ -283,6 +285,20 @@ public class Hand : MonoBehaviour
         evaluationDisplay.text = "Game Over";
         
         endOptions.ShowAfter(0.5f);
+
+        scoreManager.SubmitScore("Antti", scoreDisplay.Value, level + 1, GetId());
+    }
+
+    private static string GetId()
+    {
+        if (PlayerPrefs.HasKey("PlayerId"))
+        {
+            return PlayerPrefs.GetString("PlayerId");
+        }
+
+        var id = Guid.NewGuid().ToString();
+        PlayerPrefs.SetString("PlayerId", id);
+        return id;
     }
 
     private void StartEvaluation()
